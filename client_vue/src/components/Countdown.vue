@@ -1,7 +1,8 @@
 <template>
   <div id="timer">
-    <h1> active: {{ active }}, finished: {{ finished }}</h1>
-    <h1> {{ getMinutes }}:{{ getSeconds }}</h1>
+    <h1> time: {{ getMinutes }}:{{ getSeconds }}</h1>
+    <h2> done: {{ finished }}</h2>
+    <h2> active: {{active}}</h2>
     <button type="button" v-on:click="startTimer"> Start</button>
     <button type="button" v-on:click="stopTimer"> Stop</button>
   </div>
@@ -9,49 +10,44 @@
 
 <script>
 
-const zeroPad = (num, places) => String(num).padStart(places, '0')
+//const debug = true;
+
+import {zeroPad} from '@/assets/timecalculations';
+
+//const settings = debug ? debug_settings : deploy_settings;
 
 export default {
   name: "Countdown",
   data() {
-    return {
-      time: 70,
-      timeoutObject: null,
-      active: false
-    };
+    return {};
+  },
+  created() {
+    this.$store.dispatch('startTimer');
   },
   computed: {
     getSeconds() {
-      return zeroPad(this.time % 60, 2);
+      return zeroPad(this.getTimer() % 60, 2);
     },
     getMinutes() {
-      return zeroPad(Math.floor(this.time / 60), 2);
+      return zeroPad(Math.floor(this.getTimer() / 60), 2);
     },
     finished() {
-      return (this.time === 0);
+      return (this.getTimer() === 0);
+    },
+    active() {
+      return this.$store.state.active;
     }
   },
   methods: {
-    countDown() {
-      this.timeoutObject = setTimeout(() => {
-        if (this.active && this.time > 0) {
-          this.time -= 1;
-          this.countDown();
-        }
-      }, 1000)
+    getTimer() {
+      const t = this.$store.state.time;
+      return t;
     },
     startTimer() {
-      if (this.active === false && this.timeoutObject === null) {
-        this.active = true;
-        this.countDown();
-      }
+      this.$store.dispatch('startTimer');
     },
     stopTimer() {
-      if (this.active === true && this.timeoutObject !== null) {
-        clearTimeout(this.timeoutObject)
-        this.timeoutObject = null;
-        this.active = false;
-      }
+      this.$store.dispatch('stopTimer');
     }
   }
 }
