@@ -1,10 +1,14 @@
 <template>
   <div id="timer">
-    <h1> time: {{ getMinutes }}:{{ getSeconds }}</h1>
+    <h1> time: {{ getMinutes }}:{{ getSeconds }}:{{getMilliseconds}}</h1>
+    <h1> time: {{ getMinutes }}:{{ getSeconds }}:{{getMilliseconds}}</h1>
+    <h1> time: {{ getMinutes }}:{{ getSeconds }}:{{getMilliseconds}}</h1>
     <h2> done: {{ finished }}</h2>
     <h2> active: {{ active }}</h2>
     <button type="button" v-on:click="startTimer"> Start</button>
     <button type="button" v-on:click="stopTimer"> Stop</button>
+    <button type="button" v-on:click="restartTimer(20)"> Restart(20Sec)</button>
+
   </div>
 </template>
 
@@ -24,15 +28,18 @@ export default {
     };
   },
   created() {
-    this.$store.dispatch('startTimer');
-    this.updateLoop();
+    // only runs if not active already
+    this.$store.dispatch('startUpdateLoop');
   },
   computed: {
     getSeconds() {
-      return zeroPad(Math.floor(this.t % 60), 2);
+      return zeroPad(Math.floor(this.$store.state.t % 60), 2);
     },
     getMinutes() {
-      return zeroPad(Math.floor(this.t / 60), 2);
+      return zeroPad(Math.floor(this.$store.state.t / 60), 2);
+    },
+    getMilliseconds() {
+      return zeroPad(Math.floor((this.$store.state.t % 1)*100) , 2);
     },
     finished() {
       return (this.t === 0);
@@ -47,24 +54,10 @@ export default {
     },
     stopTimer() {
       this.$store.dispatch('stopTimer');
-      this.updateTime();
     },
-    updateLoop() {
-      this.updateTime();
-      setTimeout(() => {
-        this.updateLoop();
-      }, 1000);
-    },
-    updateTime() {
-      const t_left = this.$store.state.t_left;
-      const t_0 = this.$store.state.t_0;
-      let t_actual;
-      if (this.$store.state.active) {
-        t_actual = t_left - ((performance.now() - t_0) / 1000);
-      } else {
-        t_actual = t_left;
-      }
-      this.t = t_actual;
+    restartTimer(t) {
+      this.$store.dispatch('stopTimer');
+      this.$store.dispatch('setupTimer', t);
     }
   }
 }
