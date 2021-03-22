@@ -2,44 +2,52 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
-    time: 71,
+    t_left: 10,
+    t_0: -1,
     timeoutObject: null,
-    active: false
+    active: false,
+    finished: false,
   },
   mutations: {
-    countDown(state) {
-      state.time -= 1;
+    reduceTimeLeft(state, t_elapsed) {
+      state.t_left -= t_elapsed;
     },
     start(state) {
       state.active = true;
+      state.t_0 = performance.now()
     },
     stop(state) {
       state.active = false;
     },
     clearTimeout(state) {
-      state.timeoutObject = null;
       clearTimeout(state.timeoutObject);
+      state.timeoutObject = null;
+    },
+    startTimeout(state) {
+      state.timeoutObject = setTimeout(() => {
+        this.commit('finish');
+      }, state.t_left * 1000)
+    },
+    finish(state) {
+      console.log("finished!");
+      state.active = false;
+      state.finished = true;
+      state.t_left = 0;
+      state.timeoutObject = null;
     }
   },
   actions: {
-    countDownLoop(context) {
-        this.state.timeoutObject = setTimeout(() => {
-          if (context.state.active && context.state.time > 0) {
-            context.commit('countDown');
-            context.dispatch('countDownLoop');
-          }
-        }, 1000)
-    },
     startTimer(context) {
-      if (context.state.active === false && context.state.timeoutObject === null) {
+      if (context.state.active === false && context.state.timeoutObject === null && context.state.finished === false) {
         context.commit('start');
-        context.dispatch('countDownLoop')
+        context.commit('startTimeout');
       }
     },
     stopTimer(context) {
       if (context.state.active === true && context.state.timeoutObject !== null) {
         context.commit('clearTimeout');
         context.commit('stop');
+        context.commit('reduceTimeLeft', (performance.now() - context.state.t_0)/1000);
       }
     }
   },
