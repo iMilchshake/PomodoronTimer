@@ -1,14 +1,17 @@
 <template>
   <div id="timer">
-    <h1> time: {{ getMinutes }}:{{ getSeconds }}:{{getMilliseconds}}</h1>
-    <h1> time: {{ getMinutes }}:{{ getSeconds }}:{{getMilliseconds}}</h1>
-    <h1> time: {{ getMinutes }}:{{ getSeconds }}:{{getMilliseconds}}</h1>
-    <h2> done: {{ finished }}</h2>
-    <h2> active: {{ active }}</h2>
-    <button type="button" v-on:click="startTimer"> Start</button>
-    <button type="button" v-on:click="stopTimer"> Stop</button>
-    <button type="button" v-on:click="restartTimer(20)"> Restart(20Sec)</button>
+    <div id="content">
 
+      <div id="time">
+        <p> {{ getMinutes }}:{{ getSeconds }}:{{ getMilliseconds }}</p>
+      </div>
+
+      <div id="buttons">
+        <button class="button" type="button" v-on:click="restartTimer(20)"> Set t=20sec</button>
+        <button class="button" type="button" v-on:click="startTimer"> Start</button>
+        <button class="button" type="button" v-on:click="stopTimer"> Stop</button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -39,7 +42,7 @@ export default {
       return zeroPad(Math.floor(this.$store.state.t / 60), 2);
     },
     getMilliseconds() {
-      return zeroPad(Math.floor((this.$store.state.t % 1)*100) , 2);
+      return zeroPad(Math.floor((this.$store.state.t % 1) * 100), 2);
     },
     finished() {
       return (this.t === 0);
@@ -64,5 +67,46 @@ export default {
 </script>
 
 <style scoped>
+#timer {
+  background-color: ghostwhite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#content {
+  background-color: lightgray;
+  border-radius: 10px;
+  margin: 1em;
+}
+
+#time {
+  background-color: ghostwhite;
+  border-radius: 10px;
+  margin: 1em;
+}
+
+#time > p{
+  padding: 1em;
+  margin: 0;
+}
+
+#buttons {
+  padding: 0 1em 1em 1em;
+  display: flex;
+  gap: 0.5em;
+}
+
+.button {
+  background-color: ghostwhite;
+  border: none;
+  border-radius: 5px;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  outline: none;
+}
 
 </style>
