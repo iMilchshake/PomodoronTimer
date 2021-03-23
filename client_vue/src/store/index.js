@@ -58,6 +58,7 @@ export default createStore({
             if (context.state.active === false && context.state.timeoutObject === null && context.state.finished === false) {
                 context.commit('start');
                 context.commit('startTimeout');
+                context.commit('updateShowcaseTime');
             }
         },
         stopTimer(context) {
@@ -78,7 +79,7 @@ export default createStore({
             context.commit('updateShowcaseTime');
             setTimeout(() => {
                 context.dispatch('updateLoop');
-            }, 1000);
+            }, 100);
         },
         setupTimer(context, time) {
             context.commit('setupTimer', time);
