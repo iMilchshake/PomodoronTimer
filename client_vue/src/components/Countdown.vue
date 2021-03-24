@@ -7,7 +7,7 @@
       </div>
 
       <div id="buttons">
-        <button class="button" type="button" v-on:click="restartTimer(20)"> Set t=20sec</button>
+        <button class="button" type="button" v-on:click="addTime(5)"> + 1min</button>
         <button class="button" type="button" v-on:click="startTimer"> Start</button>
         <button class="button" type="button" v-on:click="stopTimer"> Stop</button>
       </div>
@@ -49,6 +49,9 @@ export default {
     },
     active() {
       return this.$store.state.active;
+    },
+    totalTime() {
+      return this.$store.state.t_goal;
     }
   },
   methods: {
@@ -61,6 +64,21 @@ export default {
     restartTimer(t) {
       this.$store.dispatch('stopTimer');
       this.$store.dispatch('setupTimer', t);
+    },
+    playClickSound() {
+      let a = new Audio("CLICK7C.wav");
+      a.play();
+    },
+    addTime(t) {
+      const active = this.$store.state.active;
+      this.$store.dispatch('stopTimer');
+
+      const time_left = this.$store.state.t_left;
+      this.$store.dispatch('setupTimer', time_left + t);
+
+      if (active) {
+        this.$store.dispatch('startTimer');
+      }
     }
   }
 }
@@ -68,7 +86,6 @@ export default {
 
 <style scoped>
 #timer {
-  background-color: ghostwhite;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -86,9 +103,10 @@ export default {
   margin: 1em;
 }
 
-#time > p{
-  padding: 1em;
+#time > p {
+  padding: 0.5em;
   margin: 0;
+  font-size: 4em;
 }
 
 #buttons {

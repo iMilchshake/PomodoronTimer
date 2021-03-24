@@ -8,16 +8,26 @@
         n_loops: how many times t_pomodoro and t_short will be looped until a t_long break
  */
 
-export const deploy_settings = {
-    t_pomodoro: 1500,
-    t_short: 500,
-    t_long: 900,
-    n_loops: 3
-}
+// eslint-disable-next-line no-unused-vars
+const deploy_settings = function() {
+    return {
+        t_pomodoro: 1500,
+        t_short: 500,
+        t_long: 900,
+        n_loops: 3
+    }
+};
 
-export const debug_settings = {
-    t_pomodoro: 15,
-    t_short: 5,
-    t_long: 9,
-    n_loops: 2
-}
+// eslint-disable-next-line no-unused-vars
+const test_settings = function() {
+    return {
+        t_pomodoro: 3,
+        t_short: 1,
+        t_long: 2,
+        n_loops: 3
+    }
+};
+
+
+//export default deploy_settings();
+export default test_settings();
