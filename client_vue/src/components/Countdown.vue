@@ -70,16 +70,8 @@ export default {
       a.play();
     },
     addTime(t) {
-      const active = this.$store.state.active;
-      this.$store.dispatch('stopTimer');
-
-      const time_left = this.$store.state.t_left;
-      this.$store.dispatch('setupTimer', time_left + t);
-
-      if (active) {
-        this.$store.dispatch('startTimer');
-      }
-    }
+      this.$store.dispatch('addTime', t);
+    },
   }
 }
 </script>

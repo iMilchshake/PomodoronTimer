@@ -40,10 +40,17 @@ export default createStore({
             state.t_goal = t;
             state.finished = false;
         },
+        addTime(state, t) {
+          state.t_left += t;
+          state.t += t;
+          state.t_goal += t;
+        },
         finish(state) {
             // reset variables
             state.active = false;
             state.timeoutObject = null;
+
+            console.log('this took', state.t_goal, ' seconds!')
 
             // pomodoro cycle logic
             if(state.phase === 'pomodoro') {
@@ -105,6 +112,15 @@ export default createStore({
         },
         setupTimer(context, time) {
             context.commit('setupTimer', time);
+        },
+        addTime(context, time) {
+            const active_before = this.state.active;
+            context.dispatch('stopTimer');
+            context.commit('addTime', time);
+
+            if(active_before) {
+                context.dispatch('startTimer');
+            }
         }
     },
     modules: {}
