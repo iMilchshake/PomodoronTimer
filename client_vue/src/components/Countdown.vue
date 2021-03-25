@@ -61,9 +61,6 @@ export default {
           throw "invalid phase";
       }
     },
-    finished() {
-      return (this.t === 0);
-    },
     active() {
       return this.$store.state.active;
     },

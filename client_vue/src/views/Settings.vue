@@ -1,6 +1,5 @@
 <template>
-  <div class="about">
-    <h1>SettingsPage</h1>
+  <div class="settings_view">
     <SettingsMenu/>
     <img alt="Vue logo" src="../assets/pomodoro-timer.png">
   </div>

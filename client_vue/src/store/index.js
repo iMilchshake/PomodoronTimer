@@ -1,18 +1,19 @@
 import {createStore} from 'vuex'
 import settings from '../assets/settings';
+import {addFinishObject} from "@/assets/logger";
 
 export default createStore({
     state: {
         t_left: settings.t_pomodoro,
         t: settings.t_pomodoro, // <- read this for output
-        t_0: 0,
         t_goal: settings.t_pomodoro,
-        n_pomodoro: 0, // <-
-        phase: 'pomodoro',
+        t_0: 0,
+        active: false,
         timeoutObject: null,
         updateLoopActive: false,
-        active: false,
-        finished: false,
+        n_pomodoro: 0,
+        phase: 'pomodoro',
+        date_start: null,
     },
     mutations: {
         reduceTimeLeft(state, t_elapsed) {
@@ -21,6 +22,10 @@ export default createStore({
         start(state) {
             state.active = true;
             state.t_0 = performance.now()
+
+            if(state.date_start === null) {
+                state.date_start = new Date(); // save start time/date when first started
+            }
         },
         stop(state) {
             state.active = false;
@@ -38,7 +43,7 @@ export default createStore({
             state.t_left = t;
             state.t = t;
             state.t_goal = t;
-            state.finished = false;
+            state.date_start = null;
         },
         addTime(state, t) {
           state.t_left += t;
@@ -46,11 +51,17 @@ export default createStore({
           state.t_goal += t;
         },
         finish(state) {
+            // save here!
+            addFinishObject({
+                t_start: state.date_start,
+                t_elapsed: state.t_goal,
+                phase: state.phase
+            });
+
             // reset variables
             state.active = false;
             state.timeoutObject = null;
-
-            console.log('this took', state.t_goal, ' seconds!')
+            state.date_start = null;
 
             // pomodoro cycle logic
             if(state.phase === 'pomodoro') {
@@ -84,7 +95,7 @@ export default createStore({
     },
     actions: {
         startTimer(context) {
-            if (context.state.active === false && context.state.timeoutObject === null && context.state.finished === false) {
+            if (context.state.active === false && context.state.timeoutObject === null) {
                 context.commit('start');
                 context.commit('startTimeout');
                 context.commit('updateShowcaseTime');
