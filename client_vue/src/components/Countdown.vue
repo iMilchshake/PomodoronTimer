@@ -2,11 +2,15 @@
   <div id="timer">
     <div id="content">
 
-      <div id="time">
+      <div id="phase" class="block">
+        <p> {{getPhase}} </p>
+      </div>
+
+      <div id="time" class="block">
         <p> {{ getMinutes }}:{{ getSeconds }}:{{ getMilliseconds }}</p>
       </div>
 
-      <div id="buttons">
+      <div id="buttons" class="block">
         <button class="button" type="button" v-on:click="addTime(5)"> + 1min</button>
         <button class="button" type="button" v-on:click="startTimer"> Start</button>
         <button class="button" type="button" v-on:click="stopTimer"> Stop</button>
@@ -44,6 +48,19 @@ export default {
     getMilliseconds() {
       return zeroPad(Math.floor((this.$store.state.t % 1) * 100), 2);
     },
+    getPhase() {
+      const phase = this.$store.state.phase;
+      switch(phase) {
+        case 'pomodoro':
+          return 'Pomodoro';
+        case 'short':
+          return 'Short Break';
+        case 'long':
+          return 'Long Break';
+        default:
+          throw "invalid phase";
+      }
+    },
     finished() {
       return (this.t === 0);
     },
@@ -76,7 +93,15 @@ export default {
 }
 </script>
 
+
+
 <style scoped>
+
+h1, p {
+  margin: 0;
+  padding: 0;
+}
+
 #timer {
   display: flex;
   align-items: center;
@@ -89,7 +114,7 @@ export default {
   margin: 1em;
 }
 
-#time {
+.block {
   background-color: ghostwhite;
   border-radius: 10px;
   margin: 1em;
@@ -101,9 +126,15 @@ export default {
   font-size: 4em;
 }
 
+#phase > p {
+  font-size: 2em;
+  padding: 0.33em;
+}
+
 #buttons {
-  padding: 0 1em 1em 1em;
+  background-color: lightgray;
   display: flex;
+  justify-content: space-between;
   gap: 0.5em;
 }
 
