@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <Countdown/>
-    <img alt="Vue logo" src="../assets/pomodoro-timer.png">
+
   </div>
 </template>
 
