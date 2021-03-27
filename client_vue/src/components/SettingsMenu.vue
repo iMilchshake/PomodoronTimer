@@ -19,7 +19,14 @@ name: "SettingsMenu",
       return JSON.stringify(settings, null,  2);
     },
     getLog() {
-      return JSON.stringify(clientside_storage, null, 2)
+      const times = clientside_storage.map(obj => {
+        return {
+          t_start: obj.t_start.toLocaleString(),
+          t_elapsed: obj.t_elapsed,
+          t_phase: obj.phase,
+        }
+      });
+      return JSON.stringify(times, null, 2)
     }
   }
 }

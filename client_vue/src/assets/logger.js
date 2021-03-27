@@ -1,4 +1,5 @@
 console.log('logger ran!')
+console.log("x:", new Date().getTimezoneOffset());
 
 // this kind of mocks a future database
 export let clientside_storage = [];
