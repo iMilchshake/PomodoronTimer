@@ -14,6 +14,7 @@
         <button class="button" type="button" v-on:click="addTime(5)"> + 1min</button>
         <button class="button" type="button" v-on:click="startTimer"> Start</button>
         <button class="button" type="button" v-on:click="stopTimer"> Stop</button>
+        <button class="button" type="button" v-on:click="testRequest"> testRequest </button>
       </div>
     </div>
   </div>
@@ -24,6 +25,7 @@
 //const debug = true;
 
 import {zeroPad} from '@/assets/timecalculations';
+const axios = require('axios');
 
 //const settings = debug ? debug_settings : deploy_settings;
 
@@ -86,6 +88,18 @@ export default {
     addTime(t) {
       this.$store.dispatch('addTime', t);
     },
+    testRequest() {
+      console.log("request!");
+
+      axios.get('http://localhost:8080/PomodoronTimer/api/data', {
+        a: "XD"
+      }).then((response) => {
+        console.log(response.data);
+      }, (error) => {
+        console.error(error);
+      });
+
+    }
   }
 }
 </script>

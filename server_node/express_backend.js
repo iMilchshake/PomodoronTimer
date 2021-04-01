@@ -7,13 +7,13 @@ const port = 3000
 app.use(express.json());
 
 // setup routes
-app.get('/api/data', (req, res) => {
+app.get('/PomodoronTimer/api/data', (req, res) => {
     storage.readStorage((err, data) => {
         res.send({data: data})
     })
 })
 
-app.post('/api/add', (req, res) => {
+app.post('/PomodoronTimer/api/add', (req, res) => {
     storage.addToStorage(req.body);
     console.log(req.body);
     res.sendStatus(200);
