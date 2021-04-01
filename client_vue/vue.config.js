@@ -7,7 +7,7 @@ module.exports = {
         hot: true,
         port: 8080,
         proxy: {
-            '^/PomodoronTimer/api/data': {
+            '^/PomodoronTimer/api/': {
                 target: 'http://localhost:3000/',
                 ws: true,
                 changeOrigin: true

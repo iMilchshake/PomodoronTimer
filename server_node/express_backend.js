@@ -8,12 +8,14 @@ app.use(express.json());
 
 // setup routes
 app.get('/PomodoronTimer/api/data', (req, res) => {
+    console.log("get");
     storage.readStorage((err, data) => {
         res.send({data: data})
     })
 })
 
 app.post('/PomodoronTimer/api/add', (req, res) => {
+    console.log("add");
     storage.addToStorage(req.body);
     console.log(req.body);
     res.sendStatus(200);

@@ -1,6 +1,6 @@
 import {createStore} from 'vuex'
 import settings from '../assets/settings';
-import {addFinishObject} from "@/assets/logger";
+import {getTimeObjects, saveTimeObject} from "@/assets/backend_request";
 
 export default createStore({
     state: {
@@ -36,7 +36,7 @@ export default createStore({
         },
         startTimeout(state) {
             state.timeoutObject = setTimeout(() => {
-                this.commit('finish');
+                this.dispatch('finish');
             }, state.t_left * 1000)
         },
         setupTimer(state, t) {
@@ -51,13 +51,6 @@ export default createStore({
           state.t_goal += t;
         },
         finish(state) {
-            // save here!
-            addFinishObject({
-                t_start: state.date_start,
-                t_elapsed: state.t_goal,
-                phase: state.phase
-            });
-
             // reset variables
             state.active = false;
             state.timeoutObject = null;
@@ -132,7 +125,26 @@ export default createStore({
             if(active_before) {
                 context.dispatch('startTimer');
             }
+        },
+        async finish(context) {
+            // save current timeObject
+            const timeObject = {
+                t_start: context.state.date_start,
+                t_elapsed: context.state.t_goal,
+                phase: context.state.phase
+            }
+
+            saveTimeObject(timeObject).then(() => {
+                console.log("saved time object")
+            });
+            getTimeObjects().then(times => {
+                console.log("times: ", times);
+            })
+
+            // setup vuex-state for next timer
+            context.commit('finish');
         }
     },
     modules: {}
 })
+
