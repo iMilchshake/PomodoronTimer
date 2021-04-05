@@ -14,7 +14,6 @@
         <button class="button" type="button" v-on:click="addTime(5)"> + 1min</button>
         <button class="button" type="button" v-on:click="startTimer"> Start</button>
         <button class="button" type="button" v-on:click="stopTimer"> Stop</button>
-        <button class="button" type="button" v-on:click="testRequest"> testRequest </button>
       </div>
     </div>
   </div>

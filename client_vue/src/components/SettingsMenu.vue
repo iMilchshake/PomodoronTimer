@@ -3,7 +3,9 @@
     <h1> Settings: </h1>
     <p class="json_display"> {{ getSettings }}</p>
     <h1> Log: </h1>
-    <p class="json_display"> {{ times }}</p>
+    <div class="log" v-for="t in times" :key="t.t_start">
+      <p class="json_display"> {{ t }}</p>
+    </div>
   </div>
 </template>
 
@@ -44,17 +46,14 @@ export default {
           .then(t => {
             return t.data.map(obj => {
               return {
-                t_start: obj.t_start.toLocaleString(),
+                t_start: new Date(obj.t_start).toLocaleString(),
                 t_elapsed: obj.t_elapsed,
                 t_phase: obj.phase,
               }
             })
           })
-          .then(t_mapped => {
-            return JSON.stringify(t_mapped, null, 2);
-          })
-          .then(t_string => {
-            this.times = t_string;
+          .then(t => {
+            this.times = t;
           });
     }
   }
