@@ -4,6 +4,20 @@ const filePath = "storage.json"
 
 let cache;
 
+const readStorage = function (cb) {
+    fs.readFile(filePath, (err, fileData) => {
+        if (err) {
+            return cb && cb(err);
+        }
+        try {
+            const object = JSON.parse(fileData);
+            return cb && cb(null, object);
+        } catch (err) {
+            return cb && cb(err);
+        }
+    });
+}
+
 exports.initialize = function () {
     console.log("initializing storage")
     readStorage((err, data) => {
@@ -20,20 +34,6 @@ exports.get = async function () {
     return cache;
 }
 
-const readStorage = function (cb) {
-    fs.readFile(filePath, (err, fileData) => {
-        if (err) {
-            return cb && cb(err);
-        }
-        try {
-            const object = JSON.parse(fileData);
-            return cb && cb(null, object);
-        } catch (err) {
-            return cb && cb(err);
-        }
-    });
-}
-
 exports.add = async function (obj) {
     cache.push(obj)
 
@@ -41,30 +41,3 @@ exports.add = async function (obj) {
         if (err) console.error("Error writing file:", err);
     });
 }
-
-//
-// exports.addToStorage = function (obj) {
-//     // read current data
-//     exports.readStorage((err, data) => {
-//         if (err) {
-//             console.log("Error reading file:", err);
-//             return;
-//         }
-//
-//         // add new obj
-//         data.push(obj);
-//
-//         // write new data to file
-//         fs.writeFile(filePath, JSON.stringify(data), err => {
-//             if (err) console.log("Error writing file:", err);
-//         });
-//     });
-// }
-
-// jsonReader("storage.json", (err, data) => {
-//     if (err) {
-//         console.log(err);
-//         return;
-//     }
-//     console.log(data);
-// });
