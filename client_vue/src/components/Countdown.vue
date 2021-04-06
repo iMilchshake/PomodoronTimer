@@ -1,19 +1,19 @@
 <template>
   <div id="timer">
-    <div id="content">
+    <div id="content" class="shadow">
 
-      <div id="phase" class="block">
+      <div id="phase" class="block shadow">
         <p> {{getPhase}} </p>
       </div>
 
-      <div id="time" class="block">
+      <div id="time" class="block shadow">
         <p> {{ getMinutes }}:{{ getSeconds }}:{{ getMilliseconds }}</p>
       </div>
 
       <div id="buttons" class="block">
-        <button class="button" type="button" v-on:click="addTime(5)"> + 1min</button>
-        <button class="button" type="button" v-on:click="startTimer"> Start</button>
-        <button class="button" type="button" v-on:click="stopTimer"> Stop</button>
+        <button class="button shadow" type="button" v-on:click="addTime(5)"> + 1min</button>
+        <button class="button shadow" type="button" v-on:click="startTimer"> Start</button>
+        <button class="button shadow" type="button" v-on:click="stopTimer"> Stop</button>
       </div>
     </div>
   </div>
@@ -36,7 +36,7 @@ export default {
     };
   },
   created() {
-    // only runs if not active already
+    // only runs if not active already!
     this.$store.dispatch('startUpdateLoop');
   },
   computed: {
@@ -90,7 +90,7 @@ export default {
     testRequest() {
       console.log("request!");
 
-      axios.get('http://localhost:8080/PomodoronTimer/api/data', {
+      axios.get('http://localhost:3000/PomodoronTimer/api/data', {
         a: "XD"
       }).then((response) => {
         console.log(response.data);
@@ -112,6 +112,10 @@ h1, p {
   padding: 0;
 }
 
+.shadow {
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
 #timer {
   display: flex;
   align-items: center;
@@ -119,7 +123,7 @@ h1, p {
 }
 
 #content {
-  background-color: lightgray;
+  background-color: gray;
   border-radius: 10px;
   margin: 1em;
 }
@@ -142,7 +146,7 @@ h1, p {
 }
 
 #buttons {
-  background-color: lightgray;
+  background-color: gray;
   display: flex;
   justify-content: space-between;
   gap: 0.5em;
