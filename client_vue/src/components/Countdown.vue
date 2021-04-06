@@ -3,7 +3,7 @@
     <div id="content" class="shadow">
 
       <div id="phase" class="block shadow">
-        <p> {{getPhase}} </p>
+        <p> {{ getPhase }} </p>
       </div>
 
       <div id="time" class="block shadow">
@@ -21,12 +21,10 @@
 
 <script>
 
-//const debug = true;
-
 import {zeroPad} from '@/assets/timecalculations';
-const axios = require('axios');
 
-//const settings = debug ? debug_settings : deploy_settings;
+let click_in = new Audio("click_in.mp3");
+let click_out = new Audio("click_out.mp3");
 
 export default {
   name: "Countdown",
@@ -51,7 +49,7 @@ export default {
     },
     getPhase() {
       const phase = this.$store.state.phase;
-      switch(phase) {
+      switch (phase) {
         case 'pomodoro':
           return 'Pomodoro';
         case 'short':
@@ -72,37 +70,22 @@ export default {
   methods: {
     startTimer() {
       this.$store.dispatch('startTimer');
+      click_in.play();
     },
     stopTimer() {
       this.$store.dispatch('stopTimer');
+      click_out.play();
     },
     restartTimer(t) {
       this.$store.dispatch('stopTimer');
       this.$store.dispatch('setupTimer', t);
     },
-    playClickSound() {
-      let a = new Audio("CLICK7C.wav");
-      a.play();
-    },
     addTime(t) {
       this.$store.dispatch('addTime', t);
     },
-    testRequest() {
-      console.log("request!");
-
-      axios.get('http://localhost:3000/PomodoronTimer/api/data', {
-        a: "XD"
-      }).then((response) => {
-        console.log(response.data);
-      }, (error) => {
-        console.error(error);
-      });
-
-    }
   }
 }
 </script>
-
 
 
 <style scoped>
