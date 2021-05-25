@@ -11,21 +11,21 @@ storage.initialize();
 
 // setup routes
 app.get('/PomodoronTimer/api/data', (req, res) => {
-    console.log("get");
+    console.log("GET /PomodoronTimer/api/data");
     storage.get().then(data => {
         res.send({data: data})
     })
 })
 
 app.post('/PomodoronTimer/api/add', (req, res) => {
-    console.log("adding: " + JSON.stringify(req.body));
+    console.log("POST /PomodoronTimer/api/add " + JSON.stringify(req.body));
     storage.add(req.body).then(() => {
         res.sendStatus(200)
     });
 })
 
 app.get('/PomodoronTimer/api/data/daycount', (req, res) => {
-    console.log("daycount stat was requested");
+    console.log("GET /PomodoronTimer/api/data/daycount");
 
     storage.get().then(data => {
         data = data.map(timeObj => {

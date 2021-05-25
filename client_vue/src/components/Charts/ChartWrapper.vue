@@ -36,7 +36,6 @@ export default {
   created() {
     // call updateChart() when props change
     watch(() => this.$props, () => {
-          console.log("props changes, updating chart..")
           this.updateChart();
         },
         {deep: true}
