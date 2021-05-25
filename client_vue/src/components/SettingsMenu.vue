@@ -2,7 +2,10 @@
   <div id="layout">
     <h1> Settings: </h1>
     <div class="outer_box">
-      <p class="inner_box"> {{ getSettings }}</p>
+      <div class="inner_box" v-for="setting in Object.keys(getSettings)" :key="setting">
+        <p> {{ setting + " >> " + getSettings[setting] + "s" }} </p>
+        <input type="text" v-model="getSettings[setting]">
+      </div>
     </div>
     <h1> Log: </h1>
     <transition name="fade" mode="in-out">
@@ -32,8 +35,11 @@ export default {
     this.updateTimes();
   },
   computed: {
-    getSettings() {
+    getSettingsString() {
       return JSON.stringify(settings, null, 2);
+    },
+    getSettings() {
+      return settings;
     },
     getLog() {
       const times = clientside_storage.map(obj => {
@@ -91,6 +97,7 @@ export default {
 
 .inner_box {
   display: flex;
+  flex-direction: column;
   align-content: center;
   justify-content: flex-start;
 
