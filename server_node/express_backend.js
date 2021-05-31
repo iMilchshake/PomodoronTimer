@@ -20,7 +20,7 @@ app.get('/PomodoronTimer/api/data', (req, res) => {
 app.post('/PomodoronTimer/api/add', (req, res) => {
     console.log("POST /PomodoronTimer/api/add " + JSON.stringify(req.body));
     storage.add(req.body).then(() => {
-        res.sendStatus(200)
+        res.sendStatus(200);
     });
 })
 
@@ -48,6 +48,14 @@ app.get('/PomodoronTimer/api/data/daycount', (req, res) => {
 
         res.send(Object.values(counts));
     })
+});
+
+// invalid route
+app.use(function(req, res){
+    res.send({
+        status: 'error',
+        error: 'invalid route!',
+    });
 });
 
 // host server
