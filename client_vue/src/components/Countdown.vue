@@ -14,6 +14,7 @@
         <button class="button shadow" type="button" v-on:click="addTime(5)"> + 1min</button>
         <button class="button shadow" type="button" v-on:click="startTimer"> Start</button>
         <button class="button shadow" type="button" v-on:click="stopTimer"> Stop</button>
+        <button class="button shadow" type="button" v-on:click="skipPhase"> Skip</button>
       </div>
     </div>
   </div>
@@ -82,7 +83,12 @@ export default {
     },
     addTime(t) {
       this.$store.dispatch('addTime', t);
+      click_in.play();
     },
+    skipPhase() {
+      this.$store.dispatch('skipPhase');
+      click_out.play();
+    }
   }
 }
 </script>

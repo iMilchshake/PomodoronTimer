@@ -2,9 +2,12 @@
   <div id="layout">
     <h1> Settings: </h1>
     <div class="outer_box">
-      <div class="inner_box" v-for="setting in Object.keys(getSettings)" :key="setting">
-        <p> {{ setting + " >> " + getSettings[setting] + "s" }} </p>
-        <input type="text" v-model="getSettings[setting]">
+      <div class="inner_box">
+        <p> t_pomodoro {{ getSettingsString("t_pomodoro") }} sec </p>
+        <p> t_short {{ getSettingsString("t_short") }} sec </p>
+        <p> t_long {{ getSettingsString("t_long") }} sec </p>
+        <p> n_loops {{ getSettingsString("n_loops") }} sec </p>
+        <!--        <input type="text" v-model="getSettings[setting]">-->
       </div>
     </div>
     <h1> Log: </h1>
@@ -35,9 +38,6 @@ export default {
     this.updateTimes();
   },
   computed: {
-    getSettingsString() {
-      return JSON.stringify(settings, null, 2);
-    },
     getSettings() {
       return settings;
     },
@@ -53,14 +53,20 @@ export default {
     }
   },
   methods: {
+    getSettingsString(s) {
+      console.log("d", settings[s]);
+      return "" + settings[s];
+    },
     updateTimes: function () {
       getTimeObjects()
           .then(t => {
             return t.data.map(obj => {
               return {
-                t_start: new Date(obj.t_start).toLocaleString(),
-                t_elapsed: obj.t_elapsed,
-                t_phase: obj.phase,
+                start: new Date(obj.start).toLocaleString(),
+                end: new Date(obj.end).toLocaleString(),
+                time: obj.time_goal,
+                time_left: obj.time_left,
+                phase: obj.phase,
               }
             })
           })
