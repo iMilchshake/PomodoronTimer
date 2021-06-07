@@ -34,10 +34,6 @@ export default {
       t: 0
     };
   },
-  created() {
-    // only runs if not active already!
-    this.$store.dispatch('startUpdateLoop');
-  },
   computed: {
     getSeconds() {
       return zeroPad(Math.floor(this.$store.state.t % 60), 2);

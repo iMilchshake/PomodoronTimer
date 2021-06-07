@@ -1,5 +1,5 @@
 import {createStore} from 'vuex'
-import settings from '../assets/settings';
+//import settings from '../assets/settings';
 import {saveTimeObject} from "@/assets/backend_request";
 
 const getCurrentTime = () => {
@@ -8,9 +8,9 @@ const getCurrentTime = () => {
 
 export default createStore({
     state: {
-        t_left: settings.t_pomodoro,
-        t: settings.t_pomodoro, // <- read this for output
-        t_goal: settings.t_pomodoro,
+        t_left: 0,
+        t: 0, // <- read this for output
+        t_goal: 0,
         t_0: 0,
         active: false,
         timeoutObject: null,
@@ -18,7 +18,7 @@ export default createStore({
         n_pomodoro: 0,
         phase: 'pomodoro',
         date_start: null,
-        settings: settings
+        settings: null
     },
     mutations: {
         reduceTimeLeft(state, t_elapsed) {
@@ -64,17 +64,17 @@ export default createStore({
             // pomodoro cycle logic
             if (state.phase === 'pomodoro') {
                 state.n_pomodoro += 1
-                if (state.n_pomodoro === settings.n_loops) {
+                if (state.n_pomodoro === state.settings.n_loops) {
                     state.n_pomodoro = 0;
                     state.phase = 'long';
-                    this.commit('setupTimer', settings.t_long)
+                    this.commit('setupTimer', state.settings.t_long)
                 } else {
                     state.phase = 'short';
-                    this.commit('setupTimer', settings.t_short)
+                    this.commit('setupTimer', state.settings.t_short)
                 }
             } else {
                 state.phase = 'pomodoro';
-                this.commit('setupTimer', settings.t_pomodoro);
+                this.commit('setupTimer', state.settings.t_pomodoro);
             }
 
             console.log("loops: ", state.n_pomodoro, "phase: ", state.phase);
@@ -111,6 +111,7 @@ export default createStore({
             if (context.state.updateLoopActive === false) {
                 context.commit('setUpdateLoopState');
                 context.dispatch('updateLoop').then();
+                console.log("update loop was started")
             }
         },
         updateLoop(context) {

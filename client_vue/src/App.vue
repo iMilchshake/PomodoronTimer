@@ -7,6 +7,30 @@
   <router-view/>
 </template>
 
+<script>
+
+export default {
+  name: "App",
+  created() {
+
+    // fetch settings and setup timer
+    fetch('./settings.json').then(response => {
+      return response.json();
+    }).then(settings => {
+      console.log("fetched settings", settings);
+      this.$store.state.settings = settings;
+      this.$store.dispatch("setupTimer", settings.t_pomodoro)
+    }).catch(err => {
+      console.error("error while fetching settings.json \n", err)
+    });
+
+    // start timer's update loop
+    this.$store.dispatch('startUpdateLoop');
+  },
+}
+
+</script>
+
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
