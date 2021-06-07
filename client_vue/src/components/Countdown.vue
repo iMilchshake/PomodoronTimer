@@ -1,7 +1,12 @@
 <template>
-  <div id="timer">
-    <div id="content" class="shadow">
 
+  <div id="timer">
+
+    <div id="logo_head">
+      <img class="logo" :src="'logo.png'">
+    </div>
+
+    <div id="content" class="shadow">
       <div id="phase" class="block shadow">
         <p> {{ getPhase }} </p>
       </div>
@@ -92,6 +97,17 @@ export default {
 
 <style scoped>
 
+
+#logo_head {
+  display: flex;
+  flex-direction: row;
+}
+
+.logo {
+  max-width: 300px;
+  margin: 1em;
+}
+
 h1, p {
   margin: 0;
   padding: 0;
@@ -105,6 +121,7 @@ h1, p {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 }
 
 #content {
