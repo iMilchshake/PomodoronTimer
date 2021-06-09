@@ -6,6 +6,8 @@ const getCurrentTime = () => {
     return performance.now();
 }
 
+let ding = new Audio("ding.wav");
+
 export default createStore({
     state: {
         t_left: 0,
@@ -133,12 +135,16 @@ export default createStore({
                 }
             });
         },
-        async finish(context) {
+        finish(context) {
             // save current timeObject
-            context.dispatch('saveCurrentTime').then();
+            context.dispatch('saveCurrentTime').then(() => {
+                // setup vuex-state for next timer
+                context.commit('finish');
+                // play sound
+                ding.play().then()
+            });
 
-            // setup vuex-state for next timer
-            context.commit('finish');
+
         },
         skipPhase(context) {
 

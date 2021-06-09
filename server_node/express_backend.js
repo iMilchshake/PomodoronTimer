@@ -29,7 +29,7 @@ app.get('/PomodoronTimer/api/data/daycount', (req, res) => {
 
     storage.get().then(data => {
         data = data.map(timeObj => {
-            return (new Date(timeObj.t_start).getDay());
+            return (new Date(timeObj.start).getDay());
         })
 
         let counts = {

@@ -6,7 +6,6 @@
       :show="doughnutChart.show"
       @before-render="beforeRenderLogic"
   />
-  <!--  <button type="button" v-on:click="changeData()"> ChangeProps </button>-->
 </template>
 
 <script>

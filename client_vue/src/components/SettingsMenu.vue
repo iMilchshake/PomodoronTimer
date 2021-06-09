@@ -54,7 +54,6 @@ export default {
   },
   methods: {
     getSettingsString(s) {
-      console.log("d", settings[s]);
       return "" + settings[s];
     },
     updateTimes: function () {
