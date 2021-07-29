@@ -1,4 +1,3 @@
-// https://heynode.com/tutorial/readwrite-json-files-nodejs
 const fs = require('fs')
 const filePath = "storage.json"
 
@@ -24,8 +23,7 @@ exports.addToStorage = function (obj) {
             return;
         }
 
-        // add new obj
-        data.push(obj);
+        data.push(obj);  // add new obj
 
         // write new data to file
         fs.writeFile(filePath, JSON.stringify(data), err => {
@@ -33,11 +31,3 @@ exports.addToStorage = function (obj) {
         });
     });
 }
-
-// jsonReader("storage.json", (err, data) => {
-//     if (err) {
-//         console.log(err);
-//         return;
-//     }
-//     console.log(data);
-// });

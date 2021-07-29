@@ -2,8 +2,6 @@
 const fs = require('fs')
 const filePath = "storage.json"
 
-let cache;
-
 const readStorage = function (cb) {
     fs.readFile(filePath, (err, fileData) => {
         if (err) {
@@ -18,20 +16,22 @@ const readStorage = function (cb) {
     });
 }
 
-exports.initialize = function () {
-    console.log("initializing storage")
-    readStorage((err, data) => {
-        if (err) {
-            console.error("error reading storage");
-            return;
-        } else {
-            cache = data;
-        }
-    })
-}
+// initialize cache
+let cache;
+readStorage((err, data) => {
+    if (err) {
+        console.error("error reading storage");
+    } else {
+        cache = data;
+    }
+})
 
 exports.get = async function () {
-    return cache;
+    if (cache === undefined) {
+        console.error("cache is empty");
+    } else {
+        return cache;
+    }
 }
 
 exports.add = async function (obj) {
