@@ -1,11 +1,36 @@
 <template>
-  <test-chart2
-      :id="doughnutChart.id"
-      :type="doughnutChart.type"
-      :data="doughnutChart.data"
-      :show="doughnutChart.show"
-      @before-render="beforeRenderLogic"
-  />
+
+  <div id="chart_box">
+    <test-chart2 class="chart"
+                 :id="doughnutChart.id"
+                 :type="doughnutChart.type"
+                 :data="doughnutChart.data"
+                 :show="doughnutChart.show"
+                 @before-render="beforeRenderLogic"
+    />
+    <test-chart2 class="chart"
+                 :id="doughnutChart.id"
+                 :type="doughnutChart.type"
+                 :data="doughnutChart.data"
+                 :show="doughnutChart.show"
+                 @before-render="beforeRenderLogic"
+    />
+    <test-chart2 class="chart"
+                 :id="doughnutChart.id"
+                 :type="doughnutChart.type"
+                 :data="doughnutChart.data"
+                 :show="doughnutChart.show"
+                 @before-render="beforeRenderLogic"
+    />
+    <test-chart2 class="chart"
+                 :id="doughnutChart.id"
+                 :type="doughnutChart.type"
+                 :data="doughnutChart.data"
+                 :show="doughnutChart.show"
+                 @before-render="beforeRenderLogic"
+    />
+
+  </div>
 </template>
 
 <script>
@@ -60,5 +85,23 @@ export default {
 </script>
 
 <style scoped>
+
+#chart_box {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: flex-start;
+  align-items: flex-start;
+}
+
+.chart {
+  min-width: 0;
+  min-height: 0;
+  max-width: 400px;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 300px;
+}
 
 </style>

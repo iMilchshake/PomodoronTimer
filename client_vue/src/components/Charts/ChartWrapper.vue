@@ -80,12 +80,6 @@ export default {
 
 
 <style scoped>
-
-.chart {
-  max-height: 600px;
-  max-width: 600px;
-}
-
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.35s ease;
