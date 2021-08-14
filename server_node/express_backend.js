@@ -8,7 +8,7 @@ const port = 3000
 app.use(express.json());
 
 // initialize storage
-storage.initialize();
+// storage.initialize(); should now be implicated by import
 
 // setup routes
 app.get('/PomodoronTimer/api/data', (req, res) => {
@@ -28,6 +28,13 @@ app.post('/PomodoronTimer/api/add', (req, res) => {
 app.get('/PomodoronTimer/api/data/daycount', (req, res) => {
     console.log("GET /PomodoronTimer/api/data/daycount");
     statistics.daycount().then((stats) => {
+        res.send(stats);
+    })
+});
+
+app.get('/PomodoronTimer/api/data/timeSpend', (req, res) => {
+    console.log("GET /PomodoronTimer/api/data/timeSpend");
+    statistics.timeSpend().then((stats) => {
         res.send(stats);
     })
 });

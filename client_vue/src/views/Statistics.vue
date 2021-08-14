@@ -1,32 +1,18 @@
 <template>
 
-  <div id="chart_box">
-    <test-chart2 class="chart"
-                 :id="doughnutChart.id"
-                 :type="doughnutChart.type"
-                 :data="doughnutChart.data"
-                 :show="doughnutChart.show"
+  <div id="chart_box" class="shadow">
+    <test-chart2 class="chart shadow"
+                 :id="dayCountChart.id"
+                 :type="dayCountChart.type"
+                 :data="dayCountChart.data"
+                 :show="dayCountChart.show"
                  @before-render="beforeRenderLogic"
     />
-    <test-chart2 class="chart"
-                 :id="doughnutChart.id"
-                 :type="doughnutChart.type"
-                 :data="doughnutChart.data"
-                 :show="doughnutChart.show"
-                 @before-render="beforeRenderLogic"
-    />
-    <test-chart2 class="chart"
-                 :id="doughnutChart.id"
-                 :type="doughnutChart.type"
-                 :data="doughnutChart.data"
-                 :show="doughnutChart.show"
-                 @before-render="beforeRenderLogic"
-    />
-    <test-chart2 class="chart"
-                 :id="doughnutChart.id"
-                 :type="doughnutChart.type"
-                 :data="doughnutChart.data"
-                 :show="doughnutChart.show"
+    <test-chart2 class="chart shadow"
+                 :id="timeSpentChart.id"
+                 :type="timeSpentChart.type"
+                 :data="timeSpentChart.data"
+                 :show="timeSpentChart.show"
                  @before-render="beforeRenderLogic"
     />
 
@@ -35,7 +21,8 @@
 
 <script>
 import TestChart2 from "@/components/Charts/ChartWrapper";
-import {getDayCount} from "@/assets/backend_request";
+import {getDayCount, getTimeSpend} from "@/assets/backend_request";
+import {dayCountChart, timeSpentChart} from "@/assets/statistics";
 
 export default {
   name: "Statistics",
@@ -43,35 +30,23 @@ export default {
   created() {
     getDayCount().then(dayCounts => {
       console.log("received:", dayCounts);
-      this.doughnutChart.data.datasets[0].data = dayCounts;
-      this.doughnutChart.show = true;
+      this.dayCountChart.data.datasets[0].data = dayCounts;
+      this.dayCountChart.show = true;
     });
+
+    getTimeSpend().then(timeSpend => {
+      console.log("received:", timeSpend);
+      this.timeSpentChart.data.datasets[0].data = Object.values(timeSpend);
+      this.timeSpentChart.show = true;
+    }).then(() => {
+      console.log(this.timeSpentChart);
+    })
   },
   methods: {},
   data: function () {
     return {
-      doughnutChart: {
-        id: 'doughnut',
-        type: 'doughnut',
-        show: false,
-        data: {
-          labels: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-          datasets: [
-            {
-              backgroundColor: [
-                '#c8a23f',
-                '#e06231',
-                '#2bba84',
-                '#8164c6',
-                '#7829b0',
-                '#7e7e7e',
-                '#2d2d2d'
-              ],
-              data: [1, 1, 1, 1, 1, 1, 1]
-            }
-          ]
-        }
-      },
+      dayCountChart: dayCountChart,
+      timeSpentChart: timeSpentChart,
       finishedChart: false,
       beforeRenderLogic: () => {
         //...
@@ -93,6 +68,11 @@ export default {
   justify-content: center;
   align-content: flex-start;
   align-items: flex-start;
+  gap: 1em;
+  margin: 1em;
+  padding: 1em;
+  border-radius: 10px;
+  background-color: gray;
 }
 
 .chart {
@@ -102,6 +82,15 @@ export default {
   flex-grow: 1;
   flex-shrink: 1;
   flex-basis: 300px;
+
+  background-color: ghostwhite;
+  border-radius: 10px;
+  padding: 1em;
 }
+
+.shadow {
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
 
 </style>
