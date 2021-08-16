@@ -15,7 +15,36 @@
                  :show="timeSpentChart.show"
                  @before-render="beforeRenderLogic"
     />
+    <test-chart2 class="chart shadow"
+                 :id="timeSpentChart.id"
+                 :type="timeSpentChart.type"
+                 :data="timeSpentChart.data"
+                 :show="timeSpentChart.show"
+                 @before-render="beforeRenderLogic"
+    />
+    <test-chart2 class="chart shadow"
+                 :id="timeSpentChart.id"
+                 :type="timeSpentChart.type"
+                 :data="timeSpentChart.data"
+                 :show="timeSpentChart.show"
+                 @before-render="beforeRenderLogic"
+    />
 
+    <test-chart2 class="chart shadow"
+                 :id="timeSpentChart.id"
+                 :type="timeSpentChart.type"
+                 :data="timeSpentChart.data"
+                 :show="timeSpentChart.show"
+                 @before-render="beforeRenderLogic"
+    />
+
+    <test-chart2 class="chart shadow"
+                 :id="timeSpentChart.id"
+                 :type="timeSpentChart.type"
+                 :data="timeSpentChart.data"
+                 :show="timeSpentChart.show"
+                 @before-render="beforeRenderLogic"
+    />
   </div>
 </template>
 
@@ -62,7 +91,7 @@ export default {
 <style scoped>
 
 #chart_box {
-  display: flex;
+  display: inline-flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
@@ -79,6 +108,7 @@ export default {
   min-width: 0;
   min-height: 0;
   max-width: 400px;
+  max-height: 400px;
   flex-grow: 1;
   flex-shrink: 1;
   flex-basis: 300px;
@@ -90,6 +120,12 @@ export default {
 
 .shadow {
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+@media only screen and (max-width: 744px) {
+  #chart_box {
+    display: flex;
+  }
 }
 
 

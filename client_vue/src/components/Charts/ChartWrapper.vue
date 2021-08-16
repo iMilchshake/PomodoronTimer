@@ -1,6 +1,6 @@
 <template>
   <transition name="fade" mode="in-out">
-    <div v-show="show" class="chart">
+    <div v-show="show">
       <vue3-chart-js
           :id="id"
           :type="type"
