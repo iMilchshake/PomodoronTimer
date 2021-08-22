@@ -15,36 +15,6 @@
                  :show="timeSpentChart.show"
                  @before-render="beforeRenderLogic"
     />
-    <test-chart2 class="chart shadow"
-                 :id="timeSpentChart.id"
-                 :type="timeSpentChart.type"
-                 :data="timeSpentChart.data"
-                 :show="timeSpentChart.show"
-                 @before-render="beforeRenderLogic"
-    />
-    <test-chart2 class="chart shadow"
-                 :id="timeSpentChart.id"
-                 :type="timeSpentChart.type"
-                 :data="timeSpentChart.data"
-                 :show="timeSpentChart.show"
-                 @before-render="beforeRenderLogic"
-    />
-
-    <test-chart2 class="chart shadow"
-                 :id="timeSpentChart.id"
-                 :type="timeSpentChart.type"
-                 :data="timeSpentChart.data"
-                 :show="timeSpentChart.show"
-                 @before-render="beforeRenderLogic"
-    />
-
-    <test-chart2 class="chart shadow"
-                 :id="timeSpentChart.id"
-                 :type="timeSpentChart.type"
-                 :data="timeSpentChart.data"
-                 :show="timeSpentChart.show"
-                 @before-render="beforeRenderLogic"
-    />
   </div>
 </template>
 

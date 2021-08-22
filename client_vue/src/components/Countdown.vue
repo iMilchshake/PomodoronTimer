@@ -1,7 +1,7 @@
 <template>
   <div id="timer">
     <div id="logo_head">
-      <img class="logo" :src="'logo.png'">
+      <FadeImage :src="'logo.png'" class="logo"/>
     </div>
     <div id="content" class="shadow">
       <div id="phase" class="block shadow">
@@ -23,6 +23,7 @@
 <script>
 
 import {zeroPad} from '@/assets/timecalculations';
+import FadeImage from "@/components/FadeImage";
 
 let click_in = new Audio("click_in.mp3");
 let click_out = new Audio("click_out.mp3");
@@ -30,6 +31,7 @@ let click_out = new Audio("click_out.mp3");
 
 export default {
   name: "Countdown",
+  components: {FadeImage},
   data() {
     return {
     };
@@ -91,12 +93,12 @@ export default {
 
 #logo_head {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
-.logo {
-  max-width: 300px;
-  margin: 1em;
+.logo{
+  width: 300px;
+  height: 300px;
 }
 
 h1, p {
@@ -119,6 +121,7 @@ h1, p {
   background-color: gray;
   border-radius: 10px;
   margin: 1em;
+  user-select: none;
 }
 
 .block {
