@@ -1,20 +1,69 @@
 <template>
 
   <div id="chart_box" class="shadow">
-    <test-chart2 class="chart shadow"
-                 :id="dayCountChart.id"
-                 :type="dayCountChart.type"
-                 :data="dayCountChart.data"
-                 :show="dayCountChart.show"
-                 @before-render="beforeRenderLogic"
-    />
-    <test-chart2 class="chart shadow"
-                 :id="timeSpentChart.id"
-                 :type="timeSpentChart.type"
-                 :data="timeSpentChart.data"
-                 :show="timeSpentChart.show"
-                 @before-render="beforeRenderLogic"
-    />
+    <div class="chart_container shadow">
+      <h2 class="heading shadow"> Day Distribution </h2>
+      <test-chart2 class="chart"
+                   :id="dayCountChart.id"
+                   :type="dayCountChart.type"
+                   :data="dayCountChart.data"
+                   :show="dayCountChart.show"
+                   @before-render="beforeRenderLogic"
+      />
+    </div>
+
+    <div class="chart_container">
+      <h2 class="heading shadow"> Phase Distribution </h2>
+      <test-chart2 class="chart shadow"
+                   :id="timeSpentChart.id"
+                   :type="timeSpentChart.type"
+                   :data="timeSpentChart.data"
+                   :show="timeSpentChart.show"
+                   @before-render="beforeRenderLogic"
+      />
+    </div>
+
+    <div class="chart_container">
+      <h2 class="heading shadow"> Phase Distribution </h2>
+      <test-chart2 class="chart shadow"
+                   :id="timeSpentChart.id"
+                   :type="timeSpentChart.type"
+                   :data="timeSpentChart.data"
+                   :show="timeSpentChart.show"
+                   @before-render="beforeRenderLogic"
+      />
+    </div>
+<div class="chart_container">
+      <h2 class="heading shadow"> Phase Distribution </h2>
+      <test-chart2 class="chart shadow"
+                   :id="timeSpentChart.id"
+                   :type="timeSpentChart.type"
+                   :data="timeSpentChart.data"
+                   :show="timeSpentChart.show"
+                   @before-render="beforeRenderLogic"
+      />
+    </div>
+<div class="chart_container">
+      <h2 class="heading shadow"> Phase Distribution </h2>
+      <test-chart2 class="chart shadow"
+                   :id="timeSpentChart.id"
+                   :type="timeSpentChart.type"
+                   :data="timeSpentChart.data"
+                   :show="timeSpentChart.show"
+                   @before-render="beforeRenderLogic"
+      />
+    </div>
+<div class="chart_container">
+      <h2 class="heading shadow"> Phase Distribution </h2>
+      <test-chart2 class="chart shadow"
+                   :id="timeSpentChart.id"
+                   :type="timeSpentChart.type"
+                   :data="timeSpentChart.data"
+                   :show="timeSpentChart.show"
+                   @before-render="beforeRenderLogic"
+      />
+    </div>
+
   </div>
 </template>
 
@@ -74,15 +123,28 @@ export default {
   background-color: gray;
 }
 
-.chart {
-  min-width: 0;
-  min-height: 0;
-  max-width: 400px;
-  max-height: 400px;
+.chart_container {
   flex-grow: 1;
   flex-shrink: 1;
-  flex-basis: 300px;
+  flex-basis: 355px;
 
+  min-width: 0;
+  max-width: 700px;
+  border-radius: 10px;
+  background-color: #cfcaca;
+}
+
+.chart {
+  background-color: ghostwhite;
+  border-radius: 10px;
+  padding: 1em;
+
+  min-height: 0;
+  max-height: 700px;
+}
+
+.heading {
+  margin: 0 0 0.35em 0;
   background-color: ghostwhite;
   border-radius: 10px;
   padding: 1em;
