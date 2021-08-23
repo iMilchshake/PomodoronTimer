@@ -1,10 +1,12 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Timer</router-link> |
-    <router-link to="/settings">Settings</router-link> |
-    <router-link to="/stats">Statistics</router-link>
+  <div id="page">
+    <div id="nav">
+      <router-link to="/">Timer</router-link> |
+      <router-link to="/settings">Settings</router-link> |
+      <router-link to="/stats">Statistics</router-link>
+    </div>
+    <router-view/>
   </div>
-  <router-view/>
 </template>
 
 <script>
@@ -32,17 +34,26 @@ export default {
 </script>
 
 <style>
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  height: 100%;
+}
+
+#page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 #nav {
   padding: 30px;
   background-color: #f3f3f3;
+  user-select: none;
 }
 
 #nav a {
@@ -56,5 +67,15 @@ export default {
 
 body {
   margin: 0;
+  padding: 0;
+  height: 100%;
+  max-height: 100%;
+  width: 100%;
+}
+
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
 }
 </style>

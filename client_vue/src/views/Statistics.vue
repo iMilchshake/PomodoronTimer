@@ -148,6 +148,7 @@ export default {
   background-color: ghostwhite;
   border-radius: 10px;
   padding: 1em;
+  user-select: none;
 }
 
 .shadow {

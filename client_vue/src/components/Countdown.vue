@@ -1,8 +1,5 @@
 <template>
   <div id="timer">
-    <div id="logo_head">
-      <FadeImage :src="'logo.png'" class="logo"/>
-    </div>
     <div id="content" class="shadow">
       <div id="phase" class="block shadow">
         <p> {{ getPhase }} </p>
@@ -11,7 +8,7 @@
         <p> {{ getMinutes }}:{{ getSeconds }}:{{ getMilliseconds }}</p>
       </div>
       <div id="buttons" class="block">
-        <button class="button shadow" type="button" v-on:click="addTime(5)"> + 1min</button>
+        <button class="button shadow" type="button" v-on:click="addTime(60)"> +1min</button>
         <button class="button shadow" type="button" v-on:click="startTimer"> Start</button>
         <button class="button shadow" type="button" v-on:click="stopTimer"> Stop</button>
         <button class="button shadow" type="button" v-on:click="skipPhase"> Skip</button>
@@ -23,7 +20,6 @@
 <script>
 
 import {zeroPad} from '@/assets/timecalculations';
-import FadeImage from "@/components/FadeImage";
 
 let click_in = new Audio("click_in.mp3");
 let click_out = new Audio("click_out.mp3");
@@ -31,10 +27,9 @@ let click_out = new Audio("click_out.mp3");
 
 export default {
   name: "Countdown",
-  components: {FadeImage},
+  components: {},
   data() {
-    return {
-    };
+    return {};
   },
   computed: {
     getSeconds() {
@@ -90,24 +85,9 @@ export default {
 
 <style scoped>
 
-
-#logo_head {
-  display: flex;
-  flex-direction: column;
-}
-
-.logo{
-  width: 300px;
-  height: 300px;
-}
-
 h1, p {
   margin: 0;
   padding: 0;
-}
-
-.shadow {
-  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
 }
 
 #timer {
@@ -115,6 +95,11 @@ h1, p {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  height: 100%;
+}
+
+.shadow {
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
 }
 
 #content {
@@ -152,12 +137,13 @@ h1, p {
   background-color: ghostwhite;
   border: none;
   border-radius: 5px;
-  padding: 15px 32px;
+  padding: 15px 0;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   cursor: pointer;
   outline: none;
+  width: 80px;
 }
 
 </style>

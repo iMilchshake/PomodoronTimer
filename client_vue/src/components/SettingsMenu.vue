@@ -1,19 +1,21 @@
 <template>
   <div id="layout">
+    <FadeImage :src="'logo.png'" class="logo"/>
     <h1> Settings: </h1>
-    <div class="outer_box">
-      <div class="inner_box">
-        <p> t_pomodoro {{ getSettingsString("t_pomodoro") }} sec </p>
-        <p> t_short {{ getSettingsString("t_short") }} sec </p>
-        <p> t_long {{ getSettingsString("t_long") }} sec </p>
-        <p> n_loops {{ getSettingsString("n_loops") }} sec </p>
-        <!--        <input type="text" v-model="getSettings[setting]">-->
+    <transition name="fade" mode="in-out">
+      <div class="outer_box" v-show="Object.keys(settings).length > 0 ">
+        <div class="inner_box">
+          <p> t_pomodoro: {{ getSettingsString("t_pomodoro") }} sec </p>
+          <p> t_short: {{ getSettingsString("t_short") }} sec </p>
+          <p> t_long: {{ getSettingsString("t_long") }} sec </p>
+          <p> n_loops: {{ settings["n_loops"] }} </p>
+        </div>
       </div>
-    </div>
+    </transition>
     <h1> Log: </h1>
     <transition name="fade" mode="in-out">
       <div class="outer_box" v-if="times.length > 0" key="log">
-        <div class="inner_box" v-for="t in times" :key="t.t_start">
+        <div class="inner_box" v-for="t in times" :key="t.start">
           <p> {{ t }} </p>
         </div>
       </div>
@@ -22,41 +24,28 @@
 </template>
 
 <script>
-
-import settings from '../assets/settings';
-import {clientside_storage} from "@/assets/logger";
+import FadeImage from "@/components/FadeImage";
 import {getTimeObjects} from "@/assets/backend_request";
 
 export default {
   name: "SettingsMenu",
+  components: {FadeImage},
   data: function () {
     return {
       times: [],
+      settings: {}
     }
   },
   created() {
-    this.updateTimes();
+    this.updateLog();
+    this.updateSettings();
   },
-  computed: {
-    getSettings() {
-      return settings;
-    },
-    getLog() {
-      const times = clientside_storage.map(obj => {
-        return {
-          t_start: obj.t_start.toLocaleString(),
-          t_elapsed: obj.t_elapsed,
-          t_phase: obj.phase,
-        }
-      });
-      return JSON.stringify(times, null, 2)
-    }
-  },
+  computed: {},
   methods: {
     getSettingsString(s) {
-      return "" + settings[s];
+      return "" + this.settings[s];
     },
-    updateTimes: function () {
+    updateLog: function () {
       getTimeObjects()
           .then(t => {
             return t.data.map(obj => {
@@ -72,12 +61,28 @@ export default {
           .then(t => {
             this.times = t;
           });
+    },
+    updateSettings: function () {
+      fetch("settings.json")
+          .then(response => {
+            return response.json()
+          })
+          .then(data => {
+            this.settings = data;
+          });
     }
   }
 }
 </script>
 
 <style scoped>
+
+.logo {
+  width: 300px;
+  height: 300px;
+}
+
+
 #layout {
   display: flex;
   flex-direction: column;
@@ -87,7 +92,7 @@ export default {
 
 .outer_box {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   align-items: stretch;
   justify-content: center;
   background-color: gray;
