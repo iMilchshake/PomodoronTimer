@@ -1,6 +1,6 @@
 {
-  "t_pomodoro": 9,
-  "t_short": 3,
-  "t_long": 6,
+  "t_pomodoro": 1500,
+  "t_short": 300,
+  "t_long": 900,
   "n_loops": 3
 }
