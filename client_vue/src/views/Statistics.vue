@@ -24,45 +24,16 @@
     </div>
 
     <div class="chart_container">
-      <h2 class="heading shadow"> Phase Distribution </h2>
-      <test-chart2 class="chart shadow"
-                   :id="timeSpentChart.id"
-                   :type="timeSpentChart.type"
-                   :data="timeSpentChart.data"
-                   :show="timeSpentChart.show"
-                   @before-render="beforeRenderLogic"
-      />
+      <h2 class="heading shadow"> TODO </h2>
+      <div class="chart_container dummy_chart"/>
     </div>
-<div class="chart_container">
-      <h2 class="heading shadow"> Phase Distribution </h2>
-      <test-chart2 class="chart shadow"
-                   :id="timeSpentChart.id"
-                   :type="timeSpentChart.type"
-                   :data="timeSpentChart.data"
-                   :show="timeSpentChart.show"
-                   @before-render="beforeRenderLogic"
-      />
+
+    <div class="chart_container">
+      <h2 class="heading shadow"> TODO </h2>
+      <div class="chart_container dummy_chart"/>
     </div>
-<div class="chart_container">
-      <h2 class="heading shadow"> Phase Distribution </h2>
-      <test-chart2 class="chart shadow"
-                   :id="timeSpentChart.id"
-                   :type="timeSpentChart.type"
-                   :data="timeSpentChart.data"
-                   :show="timeSpentChart.show"
-                   @before-render="beforeRenderLogic"
-      />
-    </div>
-<div class="chart_container">
-      <h2 class="heading shadow"> Phase Distribution </h2>
-      <test-chart2 class="chart shadow"
-                   :id="timeSpentChart.id"
-                   :type="timeSpentChart.type"
-                   :data="timeSpentChart.data"
-                   :show="timeSpentChart.show"
-                   @before-render="beforeRenderLogic"
-      />
-    </div>
+
+
 
   </div>
 </template>
@@ -129,9 +100,13 @@ export default {
   flex-basis: 355px;
 
   min-width: 0;
-  max-width: 700px;
+  max-width: 500px;
   border-radius: 10px;
   background-color: #cfcaca;
+}
+
+.dummy_chart {
+  aspect-ratio: 1 / 1;
 }
 
 .chart {

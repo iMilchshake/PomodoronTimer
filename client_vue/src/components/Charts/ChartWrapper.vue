@@ -82,7 +82,7 @@ export default {
 <style scoped>
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.35s ease;
+  transition: opacity 1s ease;
 }
 
 .fade-enter-from,
