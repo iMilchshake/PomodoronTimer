@@ -5,7 +5,7 @@
         <p> {{ getPhase }} </p>
       </div>
       <div id="time" class="block shadow">
-        <p> {{ getMinutes }}:{{ getSeconds }}:{{ getMilliseconds }}</p>
+        <p> {{ getTimeString }}</p>
       </div>
       <div id="buttons" class="block">
         <button class="button shadow" type="button" v-on:click="addTime(60)"> +1min</button>
@@ -32,15 +32,6 @@ export default {
     return {};
   },
   computed: {
-    getSeconds() {
-      return zeroPad(Math.floor(this.$store.state.t % 60), 2);
-    },
-    getMinutes() {
-      return zeroPad(Math.floor(this.$store.state.t / 60), 2);
-    },
-    getMilliseconds() {
-      return zeroPad(Math.floor((this.$store.state.t % 1) * 100), 2);
-    },
     getPhase() {
       const phase = this.$store.state.phase;
       switch (phase) {
@@ -53,6 +44,21 @@ export default {
         default:
           throw "invalid phase";
       }
+    },
+    getTimeString() {
+      const sec = zeroPad(Math.floor(this.$store.state.t % 60), 2);
+      const min = zeroPad(Math.floor(this.$store.state.t / 60), 2);
+      // const milli = zeroPad(Math.floor((this.$store.state.t % 1) * 100), 2);
+
+      const timeString = min + ":" + sec;
+      const headString = timeString + " - " + this.getPhase;
+
+      // only update DOM if time actually changed
+      if (document.title !== headString) {
+        document.title = headString;
+      }
+
+      return timeString;
     },
     active() {
       return this.$store.state.active;

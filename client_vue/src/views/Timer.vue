@@ -1,11 +1,10 @@
 <template>
-  <div class="home">
-    <Countdown/>
-  </div>
+  <Countdown/>
 </template>
 
 <script>
 import Countdown from "@/components/Countdown";
+
 export default {
   name: 'Home',
   components: {
