@@ -1,17 +1,23 @@
 <template>
   <div id="timer">
-    <div id="content" class="shadow">
-      <div id="phase" class="block shadow">
+    <div id="content" class="shadow" v-bind:style="colorScheme.neutral1">
+      <div id="phase" class="block shadow" v-bind:style="colorScheme.highlight1">
         <p> {{ getPhase }} </p>
       </div>
-      <div id="time" class="block shadow">
+      <div id="time" class="block shadow" v-bind:style="colorScheme.highlight1">
         <p> {{ getTimeString }}</p>
       </div>
-      <div id="buttons" class="block">
-        <button class="button shadow" type="button" v-on:click="addTime(60)"> +1min</button>
-        <button class="button shadow" type="button" v-on:click="startTimer"> Start</button>
-        <button class="button shadow" type="button" v-on:click="stopTimer"> Stop</button>
-        <button class="button shadow" type="button" v-on:click="skipPhase"> Skip</button>
+      <div id="buttons" class="block" v-bind:style="colorScheme.neutral1">
+        <button class="button shadow" type="button" v-bind:style="colorScheme.highlight1" v-on:click="addTime(60)">
+          +1min
+        </button>
+        <button class="button shadow" type="button" v-bind:style="colorScheme.highlight1" v-on:click="startTimer">
+          Start
+        </button>
+        <button class="button shadow" type="button" v-bind:style="colorScheme.highlight1" v-on:click="stopTimer"> Stop
+        </button>
+        <button class="button shadow" type="button" v-bind:style="colorScheme.highlight1" v-on:click="skipPhase"> Skip
+        </button>
       </div>
     </div>
   </div>
@@ -29,7 +35,19 @@ export default {
   name: "Countdown",
   components: {},
   data() {
-    return {};
+    return {
+      colorScheme: {
+        neutral1: {
+          backgroundColor: '#8d8d8d',
+        },
+        highlight1: {
+          backgroundColor: '#ffffff',
+          color: '#363e3e'
+        },
+      }
+    };
+  },
+  created() {
   },
   computed: {
     getPhase() {
