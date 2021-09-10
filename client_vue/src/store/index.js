@@ -11,7 +11,7 @@ let ding = new Audio("ding.wav");
 export default createStore({
     state: {
         t_left: 0,
-        t: 0, // <- read this for output
+        t: 0, // <- read this for output TODO: this whole logic should be encapsulated inside an external script
         t_goal: 0,
         t_0: 0,
         active: false,
@@ -112,15 +112,16 @@ export default createStore({
         startUpdateLoop(context) {
             if (context.state.updateLoopActive === false) {
                 context.commit('setUpdateLoopState');
-                context.dispatch('updateLoop').then();
-                console.log("update loop was started")
+                context.dispatch('updateLoop').then(() => {
+                    console.log("update loop was started")
+                });
             }
         },
         updateLoop(context) {
             context.commit('updateShowcaseTime');
             setTimeout(() => {
                 context.dispatch('updateLoop').then();
-            }, 37);
+            }, 100);
         },
         setupTimer(context, time) {
             context.commit('setupTimer', time);

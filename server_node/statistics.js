@@ -23,7 +23,6 @@ exports.timeSpend = async function () {
         let pomodoro = 0, short = 0, long = 0;
 
         data.forEach(timeObject => {  // TODO: fix warning
-            console.log(timeObject);
             switch (timeObject.phase) {
                 case "pomodoro":
                     pomodoro += timeObject.time_goal - timeObject.time_left;
@@ -49,8 +48,8 @@ exports.timeSpend = async function () {
 
 
 
-setTimeout(() => {
-    exports.timeSpend().then(r => {
-        console.log(r);
-    });
-}, 100);
+// setTimeout(() => {
+//     exports.timeSpend().then(r => {
+//         console.log(r);
+//     });
+// }, 100);
