@@ -20,7 +20,7 @@ export default {
       return response.json();
     }).then(settings => {
       console.log("fetched settings", settings);
-      this.$store.state.settings = settings;
+      this.$store.state.settings = settings; // TODO: this needs a mutation!
       this.$store.dispatch("setupTimer", settings.t_pomodoro)
     }).catch(err => {
       console.error("error while fetching settings.json \n", err)

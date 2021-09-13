@@ -3,12 +3,12 @@
     <FadeImage :src="'logo.png'" class="logo"/>
     <h1> Settings: </h1>
     <transition name="fade" mode="in-out">
-      <div class="outer_box" v-show="Object.keys(settings).length > 0 ">
+      <div class="outer_box">
         <div class="inner_box">
-          <p> t_pomodoro: {{ getSettingsString("t_pomodoro") }} sec </p>
-          <p> t_short: {{ getSettingsString("t_short") }} sec </p>
-          <p> t_long: {{ getSettingsString("t_long") }} sec </p>
-          <p> n_loops: {{ settings["n_loops"] }} </p>
+          <p> t_pomodoro: {{ getSettingsString("t_pomodoro") }}sec </p>
+          <p> t_short: {{ getSettingsString("t_short") }}sec </p>
+          <p> t_long: {{ getSettingsString("t_long") }}sec </p>
+          <p> n_loops: {{ getSettingsString("n_loops") }}x </p>
         </div>
       </div>
     </transition>
@@ -38,12 +38,12 @@ export default {
   },
   created() {
     this.updateLog();
-    this.updateSettings();
+    //this.updateSettings();
   },
   computed: {},
   methods: {
     getSettingsString(s) {
-      return "" + this.settings[s];
+      return this.$store.state.settings[s];
     },
     updateLog: function () {
       getTimeObjects()

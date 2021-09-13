@@ -10,6 +10,12 @@ let ding = new Audio("ding.wav");
 
 export default createStore({
     state: {
+        settings: {
+            t_pomodoro: 1500,
+            t_short: 300,
+            t_long: 900,
+            n_loops: 5
+        },
         t_left: 0,
         t: 0, // <- read this for output TODO: this whole logic should be encapsulated inside an external script
         t_goal: 0,
@@ -20,7 +26,6 @@ export default createStore({
         n_pomodoro: 0,
         phase: 'pomodoro',
         date_start: null,
-        settings: null
     },
     mutations: {
         reduceTimeLeft(state, t_elapsed) {
