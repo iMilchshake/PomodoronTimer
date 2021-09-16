@@ -20,5 +20,10 @@ npm run build
 npm run lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### TODO:
+- mobile support?
+- settings:
+    - disable microseconds
+    - enable hours?
+    - set update cycle (x times a second)
+    - change pagename to current time

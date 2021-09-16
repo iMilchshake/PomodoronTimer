@@ -11,13 +11,13 @@ let ding = new Audio("ding.wav");
 export default createStore({
     state: {
         settings: {
-            t_pomodoro: 1500,
-            t_short: 300,
-            t_long: 900,
-            n_loops: 5
+            t_pomodoro: process.env.VUE_APP_T_POMODORO,
+            t_short: process.env.VUE_APP_T_SHORT,
+            t_long: process.env.VUE_APP_T_LONG,
+            n_loops: process.env.VUE_APP_N_LOOPS
         },
         t_left: 0,
-        t: 0, // <- read this for output TODO: this whole logic should be encapsulated inside an external script
+        t: 0, // <- read this for output TODO: this whole logic should be encapsulated inside an external script :)
         t_goal: 0,
         t_0: 0,
         active: false,
@@ -28,6 +28,9 @@ export default createStore({
         date_start: null,
     },
     mutations: {
+        changeSettings(state, newSettings) {
+          state.settings = newSettings;
+        },
         reduceTimeLeft(state, t_elapsed) {
             state.t_left -= t_elapsed;
         },
@@ -194,4 +197,3 @@ export default createStore({
     },
     modules: {}
 })
-

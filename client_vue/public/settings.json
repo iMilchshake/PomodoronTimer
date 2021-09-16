@@ -2,5 +2,14 @@
   "t_pomodoro": 1500,
   "t_short": 300,
   "t_long": 900,
-  "n_loops": 3
+  "n_loops": 3,
+  "colorScheme": {
+    "neutral1": {
+      "backgroundColor": "#8d8d8d"
+    },
+    "highlight1": {
+      "backgroundColor": "#ffffff",
+      "color": "#363e3e"
+    }
+  }
 }

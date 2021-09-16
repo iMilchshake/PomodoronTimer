@@ -1,8 +1,10 @@
 <template>
   <div id="page">
     <div id="nav">
-      <router-link to="/">Timer</router-link> |
-      <router-link to="/settings">Settings</router-link> |
+      <router-link to="/">Timer</router-link>
+      |
+      <router-link to="/settings">Settings</router-link>
+      |
       <router-link to="/stats">Statistics</router-link>
     </div>
     <router-view/>
@@ -14,17 +16,28 @@
 export default {
   name: "App",
   created() {
-
     // fetch settings and setup timer
-    fetch('./settings.json').then(response => {
-      return response.json();
-    }).then(settings => {
-      console.log("fetched settings", settings);
-      this.$store.state.settings = settings; // TODO: this needs a mutation!
-      this.$store.dispatch("setupTimer", settings.t_pomodoro)
-    }).catch(err => {
-      console.error("error while fetching settings.json \n", err)
-    });
+    // const settings = {
+    //   t_pomodoro: 1500,
+    //   t_short: 300,
+    //   t_long: 900,
+    //   n_loops: 3,
+    // }
+    //
+    // this.$store.commit("changeSettings", settings);
+
+    // fetch('./settings.json').then(response => {
+    //   return response.json();
+    // }).then(settings => {
+    //   console.log("fetched settings", settings);
+    //   this.$store.commit("changeSettings", settings);
+    //   this.$store.dispatch("setupTimer", settings.t_pomodoro)
+    // }).catch(err => {
+    //   console.error("error while fetching settings.json \n", err)
+    // });
+
+    // setup timer
+    this.$store.dispatch("setupTimer", this.$store.state.settings.t_pomodoro)
 
     // start timer's update loop
     this.$store.dispatch('startUpdateLoop');

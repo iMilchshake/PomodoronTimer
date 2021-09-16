@@ -50,6 +50,11 @@ export default {
   created() {
   },
   computed: {
+    getColorScheme() {
+      const colorScheme = this.$store.state.settings.colorScheme;
+      console.log("scheme", colorScheme)
+      return colorScheme;
+    },
     getPhase() {
       const phase = this.$store.state.phase;
       switch (phase) {
