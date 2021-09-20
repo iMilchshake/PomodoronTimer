@@ -1,0 +1,20 @@
+[
+  {
+    "name": "debug",
+    "scheme": {
+      "neutral1": {
+        "backgroundColor": "#000000"
+      },
+      "highlight1": {
+        "backgroundColor": "#123456",
+        "color": "#000000"
+      },
+      "background": {
+        "backgroundColor": "#111111"
+      },
+      "navBackground": {
+        "backgroundColor": "#222222"
+      }
+    }
+  }
+]

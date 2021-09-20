@@ -1,5 +1,4 @@
 import {createStore} from 'vuex'
-//import settings from '../assets/settings';
 import {saveTimeObject} from "@/assets/backend_request";
 
 const getCurrentTime = () => {
@@ -10,6 +9,21 @@ let ding = new Audio("ding.wav");
 
 export default createStore({
     state: {
+        colorScheme: {
+            name: "default",
+            scheme: {
+                neutral1: {
+                    backgroundColor: "#FFFFFF"
+                },
+                highlight1: {
+                    backgroundColor: "#FFFFFF",
+                    color: "#FFFFFF"
+                },
+                background: {
+                    backgroundColor: "#FFFFFF"
+                }
+            }
+        },
         settings: {
             t_pomodoro: process.env.VUE_APP_T_POMODORO,
             t_short: process.env.VUE_APP_T_SHORT,
@@ -28,8 +42,8 @@ export default createStore({
         date_start: null,
     },
     mutations: {
-        changeSettings(state, newSettings) {
-          state.settings = newSettings;
+        changeColor(state, newColorScheme) {
+            state.colorScheme = newColorScheme;
         },
         reduceTimeLeft(state, t_elapsed) {
             state.t_left -= t_elapsed;
@@ -179,7 +193,6 @@ export default createStore({
 
         },
         saveCurrentTime(context) {
-
             // use t=0 if t is close to zero
             const timeLeft = Math.abs(context.state.t) < 0.1 ? 0 : context.state.t;
 

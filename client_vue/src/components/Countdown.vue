@@ -1,22 +1,22 @@
 <template>
   <div id="timer">
-    <div id="content" class="shadow" v-bind:style="colorScheme.neutral1">
-      <div id="phase" class="block shadow" v-bind:style="colorScheme.highlight1">
+    <div id="content" class="shadow" v-bind:style="getSchemeStyle('neutral1')">
+      <div id="phase" class="block shadow" v-bind:style="getSchemeStyle('highlight1')">
         <p> {{ getPhase }} </p>
       </div>
-      <div id="time" class="block shadow" v-bind:style="colorScheme.highlight1">
+      <div id="time" class="block shadow" v-bind:style="getSchemeStyle('highlight1')">
         <p> {{ getTimeString }}</p>
       </div>
-      <div id="buttons" class="block" v-bind:style="colorScheme.neutral1">
-        <button class="button shadow" type="button" v-bind:style="colorScheme.highlight1" v-on:click="addTime(60)">
+      <div id="buttons" class="block" v-bind:style="getSchemeStyle('neutral1')">
+        <button class="button shadow" type="button" v-bind:style="getSchemeStyle('highlight1')" v-on:click="addTime(60)">
           +1min
         </button>
-        <button class="button shadow" type="button" v-bind:style="colorScheme.highlight1" v-on:click="startTimer">
+        <button class="button shadow" type="button" v-bind:style="getSchemeStyle('highlight1')" v-on:click="startTimer">
           Start
         </button>
-        <button class="button shadow" type="button" v-bind:style="colorScheme.highlight1" v-on:click="stopTimer"> Stop
+        <button class="button shadow" type="button" v-bind:style="getSchemeStyle('highlight1')" v-on:click="stopTimer"> Stop
         </button>
-        <button class="button shadow" type="button" v-bind:style="colorScheme.highlight1" v-on:click="skipPhase"> Skip
+        <button class="button shadow" type="button" v-bind:style="getSchemeStyle('highlight1')" v-on:click="skipPhase"> Skip
         </button>
       </div>
     </div>
@@ -36,25 +36,11 @@ export default {
   components: {},
   data() {
     return {
-      colorScheme: {
-        neutral1: {
-          backgroundColor: '#8d8d8d',
-        },
-        highlight1: {
-          backgroundColor: '#ffffff',
-          color: '#363e3e'
-        },
-      }
     };
   },
   created() {
   },
   computed: {
-    getColorScheme() {
-      const colorScheme = this.$store.state.settings.colorScheme;
-      console.log("scheme", colorScheme)
-      return colorScheme;
-    },
     getPhase() {
       const phase = this.$store.state.phase;
       switch (phase) {
@@ -91,6 +77,10 @@ export default {
     }
   },
   methods: {
+    getSchemeStyle(element) {
+      const colorScheme = this.$store.state.colorScheme.scheme;
+      return colorScheme[element];
+    },
     startTimer() {
       this.$store.dispatch('startTimer');
       click_in.play();
