@@ -25,10 +25,10 @@ export default createStore({
             }
         },
         settings: {
-            t_pomodoro: process.env.VUE_APP_T_POMODORO,
-            t_short: process.env.VUE_APP_T_SHORT,
-            t_long: process.env.VUE_APP_T_LONG,
-            n_loops: process.env.VUE_APP_N_LOOPS
+            t_pomodoro: parseInt(process.env.VUE_APP_T_POMODORO),
+            t_short: parseInt(process.env.VUE_APP_T_SHORT),
+            t_long: parseInt(process.env.VUE_APP_T_LONG),
+            n_loops: parseInt(process.env.VUE_APP_N_LOOPS)
         },
         t_left: 0,
         t: 0, // <- read this for output TODO: this whole logic should be encapsulated inside an external script :)
