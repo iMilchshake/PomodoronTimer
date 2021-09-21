@@ -1,10 +1,8 @@
 <template>
   <div id="app">
     <div id="nav" v-bind:style="getSchemeStyle('navBackground')">
-      <router-link to="/">Timer</router-link>
-      |
-      <router-link to="/settings">Settings</router-link>
-      |
+      <router-link to="/">Timer</router-link> |
+      <router-link to="/settings">Settings</router-link> |
       <router-link to="/stats">Statistics</router-link>
     </div>
     <div id="dynamicView" v-bind:style="getSchemeStyle('background')">
@@ -79,7 +77,6 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
 }
 
 #nav {
@@ -90,7 +87,7 @@ export default {
 
 #nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: #5b5b5b;
 }
 
 #nav a.router-link-exact-active {

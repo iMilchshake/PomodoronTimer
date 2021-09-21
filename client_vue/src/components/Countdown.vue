@@ -118,19 +118,19 @@ h1, p {
 }
 
 .shadow {
-  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.25);
 }
 
 #content {
   background-color: gray;
-  border-radius: 10px;
+  border-radius: 7px;
   margin: 1em;
   user-select: none;
 }
 
 .block {
   background-color: ghostwhite;
-  border-radius: 10px;
+  border-radius: 7px;
   margin: 1em;
 }
 
