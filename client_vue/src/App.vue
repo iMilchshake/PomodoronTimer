@@ -13,37 +13,14 @@
 
 <script>
 
+import {color_schemes} from "./assets/color_schemes"
+
 export default {
   name: "App",
   beforeCreate() {
-    // fetch settings and setup timer
-    // const settings = {
-    //   t_pomodoro: 1500,
-    //   t_short: 300,
-    //   t_long: 900,
-    //   n_loops: 3,
-    //   colorScheme: {
-    //     neutral1: {
-    //       backgroundColor: '#ff0000',
-    //     },
-    //     highlight1: {
-    //       backgroundColor: '#0029ff',
-    //       color: '#ff00be'
-    //     },
-    //   }
-    // }
-
-    //this.$store.commit("changeSettings", settings);
-
-    fetch('./colors.json').then(response => {
-      return response.json();
-    }).then(colors => {
-      let debugScheme = colors[0];
-      console.log(debugScheme, "was fetched");
-      this.$store.commit("changeColor", debugScheme);
-    }).catch(err => {
-      console.error("error while fetching colors.json \n", err)
-    });
+    
+    // apply default color
+    this.$store.commit("changeColor", color_schemes[1])
 
     // setup timer
     this.$store.dispatch("setupTimer", this.$store.state.settings.t_pomodoro)
