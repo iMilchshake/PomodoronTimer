@@ -1,23 +1,5 @@
 export const color_schemes = [
     {
-      "name": "dark",
-      "scheme": {
-        "neutral1": {
-          "backgroundColor": "#313335"
-        },
-        "highlight1": {
-          "backgroundColor": "#3c3f41",
-          "color": "#b4aea6"
-        },
-        "background": {
-          "backgroundColor": "#1e1e1e"
-        },
-        "navBackground": {
-          "backgroundColor": "#313335"
-        }
-      }
-    },
-    {
       "name": "light",
       "scheme": {
         "neutral1": {
@@ -32,6 +14,24 @@ export const color_schemes = [
         },
         "navBackground": {
           "backgroundColor": "#dedede"
+        }
+      }
+    },
+    {
+      "name": "dark",
+      "scheme": {
+        "neutral1": {
+          "backgroundColor": "#313335"
+        },
+        "highlight1": {
+          "backgroundColor": "#3c3f41",
+          "color": "#b4aea6"
+        },
+        "background": {
+          "backgroundColor": "#1e1e1e"
+        },
+        "navBackground": {
+          "backgroundColor": "#313335"
         }
       }
     }

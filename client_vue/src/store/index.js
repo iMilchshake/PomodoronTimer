@@ -1,5 +1,6 @@
-import {createStore} from 'vuex'
-import {saveTimeObject} from "@/assets/backend_request";
+import { createStore } from 'vuex'
+import { saveTimeObject } from "@/assets/backend_request";
+import { color_schemes } from "@/assets/color_schemes"
 
 const getCurrentTime = () => {
     return performance.now();
@@ -24,6 +25,7 @@ export default createStore({
                 }
             }
         },
+        colorIndex: -1,
         settings: {
             t_pomodoro: parseInt(process.env.VUE_APP_T_POMODORO),
             t_short: parseInt(process.env.VUE_APP_T_SHORT),
@@ -42,8 +44,11 @@ export default createStore({
         date_start: null,
     },
     mutations: {
-        changeColor(state, newColorScheme) {
-            state.colorScheme = newColorScheme;
+        changeColorScheme(state, index) {
+            state.colorScheme = color_schemes[index];
+        },
+        changeColorIndex(state, index) {
+            state.colorIndex = index;
         },
         reduceTimeLeft(state, t_elapsed) {
             state.t_left -= t_elapsed;
@@ -116,6 +121,11 @@ export default createStore({
         }
     },
     actions: {
+        updateColorScheme(context, index) {
+            context.commit('changeColorIndex', index);
+            context.commit('changeColorScheme', index);
+            console.log("updating..", index)
+        },
         startTimer(context) {
             if (context.state.active === false && context.state.timeoutObject === null) {
                 context.commit('start');
@@ -189,8 +199,6 @@ export default createStore({
                 }
 
             });
-
-
         },
         saveCurrentTime(context) {
             // use t=0 if t is close to zero

@@ -13,14 +13,13 @@
 
 <script>
 
-import {color_schemes} from "./assets/color_schemes"
 
 export default {
   name: "App",
   beforeCreate() {
-    
+
     // apply default color
-    this.$store.commit("changeColor", color_schemes[1])
+    this.$store.dispatch("updateColorScheme", 1)
 
     // setup timer
     this.$store.dispatch("setupTimer", this.$store.state.settings.t_pomodoro)

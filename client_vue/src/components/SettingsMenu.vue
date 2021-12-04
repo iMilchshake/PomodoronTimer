@@ -1,5 +1,11 @@
 <template>
   <div id="layout">
+
+    <div>
+      <input type="checkbox" id="dark_mode" name="dark_mode" v-model="dark_mode" @change="changeColorScheme($event)">
+      <label for="scales">Dark-Mode</label>
+    </div>
+
     <FadeImage :src="'logo.png'" class="logo"/>
     <h1> Settings: </h1>
     <transition name="fade" mode="in-out">
@@ -27,23 +33,31 @@
 import FadeImage from "@/components/FadeImage";
 import {getTimeObjects} from "@/assets/backend_request";
 
+
 export default {
   name: "SettingsMenu",
   components: {FadeImage},
   data: function () {
-    return {
+    return { 
+      dark_mode: Boolean(this.$store.state.colorIndex),
       times: [],
       settings: {}
     }
   },
   created() {
     this.updateLog();
+    console.log(this.$store.state.colorIndex)
     //this.updateSettings();
   },
   computed: {},
   methods: {
     getSettingsString(s) {
       return this.$store.state.settings[s];
+    },
+    changeColorScheme(e) {
+      const scheme_index = this.dark_mode ? 1 : 0;
+      this.$store.dispatch("updateColorScheme", scheme_index)
+      console.log(scheme_index, e.returnValue)
     },
     updateLog: function () {
       getTimeObjects()
