@@ -1,16 +1,18 @@
 <template>
-  <div id="layout">
+  <div id="layout" v-bind:style="getSchemeStyle('background')">
 
-    <div>
+    <div v-bind:style="getSchemeStyle('text')">
       <input type="checkbox" id="dark_mode" name="dark_mode" v-model="dark_mode" @change="changeColorScheme($event)">
       <label for="scales">Dark-Mode</label>
     </div>
 
     <FadeImage :src="'logo.png'" class="logo"/>
-    <h1> Settings: </h1>
+
+    <h1 v-bind:style="getSchemeStyle('text')"> Settings: </h1>
     <transition name="fade" mode="in-out">
-      <div class="outer_box">
-        <div class="inner_box">
+
+      <div class="outer_box" v-bind:style="getSchemeStyle('neutral1')">
+        <div class="inner_box" v-bind:style="getSchemeStyle('highlight1')">
           <p> t_pomodoro: {{ getSettingsString("t_pomodoro") }}sec </p>
           <p> t_short: {{ getSettingsString("t_short") }}sec </p>
           <p> t_long: {{ getSettingsString("t_long") }}sec </p>
@@ -18,10 +20,10 @@
         </div>
       </div>
     </transition>
-    <h1> Log: </h1>
+    <h1 v-bind:style="getSchemeStyle('text')"> Log: </h1>
     <transition name="fade" mode="in-out">
-      <div class="outer_box" v-if="times.length > 0" key="log">
-        <div class="inner_box" v-for="t in times" :key="t.start">
+      <div class="outer_box" v-if="times.length > 0" key="log" v-bind:style="getSchemeStyle('neutral1')">
+        <div class="inner_box" v-for="t in times" :key="t.start" v-bind:style="getSchemeStyle('highlight1')">
           <p> {{ t }} </p>
         </div>
       </div>
@@ -58,6 +60,10 @@ export default {
       const scheme_index = this.dark_mode ? 1 : 0;
       this.$store.dispatch("updateColorScheme", scheme_index)
       console.log(scheme_index, e.returnValue)
+    },
+    getSchemeStyle(element) {
+      const colorScheme = this.$store.state.colorScheme.scheme;
+      return colorScheme[element];
     },
     updateLog: function () {
       getTimeObjects()

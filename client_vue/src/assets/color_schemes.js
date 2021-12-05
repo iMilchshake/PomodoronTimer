@@ -14,6 +14,9 @@ export const color_schemes = [
         },
         "navBackground": {
           "backgroundColor": "#dedede"
+        },
+        "text": {
+          "color": "#363e3e"
         }
       }
     },
@@ -32,6 +35,9 @@ export const color_schemes = [
         },
         "navBackground": {
           "backgroundColor": "#313335"
+        },
+        "text": {
+          "color": "#b4aea6"
         }
       }
     }
