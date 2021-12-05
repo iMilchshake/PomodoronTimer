@@ -6,17 +6,40 @@
       <label for="scales">Dark-Mode</label>
     </div>
 
-    <FadeImage :src="'logo.png'" class="logo"/>
+    <!-- <FadeImage :src="'logo.png'" class="logo"/> -->
 
     <h1 v-bind:style="getSchemeStyle('text')"> Settings: </h1>
     <transition name="fade" mode="in-out">
 
       <div class="outer_box" v-bind:style="getSchemeStyle('neutral1')">
         <div class="inner_box" v-bind:style="getSchemeStyle('highlight1')">
-          <p> t_pomodoro: {{ getSettingsString("t_pomodoro") }}sec </p>
+          <!-- <p> t_pomodoro: {{ getSettingsString("t_pomodoro") }}sec </p>
           <p> t_short: {{ getSettingsString("t_short") }}sec </p>
           <p> t_long: {{ getSettingsString("t_long") }}sec </p>
-          <p> n_loops: {{ getSettingsString("n_loops") }}x </p>
+          <p> n_loops: {{ getSettingsString("n_loops") }}x </p> -->
+
+
+            <label for="t_pomodoro"> Pomodoro Time</label> 
+            <input type="number" id="t_pomodoro" name="t_pomodoro" v-model="settings.t_pomodoro">         
+            <p> sec </p>
+
+            <label for="t_short"> Short-Break Time</label> 
+            <input type="number" id="t_short" name="t_short" v-model="settings.t_short">         
+            <p> sec </p>
+
+            <label for="t_long"> Long-Break Time</label> 
+            <input type="number" id="t_long" name="t_long" v-model="settings.t_long">         
+            <p> sec </p>
+
+            <label for="n_loops"> Loop Count</label> 
+            <input type="number" id="n_loops" name="n_loops" v-model="settings.n_loops">        
+            <p> sec </p> 
+          
+            <div/>
+            <input type="button" value="Submit" @click="updateSettings()">
+            <div/>
+
+
         </div>
       </div>
     </transition>
@@ -32,18 +55,18 @@
 </template>
 
 <script>
-import FadeImage from "@/components/FadeImage";
+// import FadeImage from "@/components/FadeImage";
 import {getTimeObjects} from "@/assets/backend_request";
 
 
 export default {
   name: "SettingsMenu",
-  components: {FadeImage},
+  components: {},
   data: function () {
     return { 
       dark_mode: Boolean(this.$store.state.colorIndex),
       times: [],
-      settings: {}
+      settings: this.$store.state.settings,
     }
   },
   created() {
@@ -82,15 +105,18 @@ export default {
             this.times = t;
           });
     },
-    updateSettings: function () {
-      fetch("settings.json")
-          .then(response => {
-            return response.json()
-          })
-          .then(data => {
-            this.settings = data;
-          });
+    updateSettings() {
+      console.log(this.settings);
     }
+    // updateSettings: function () {
+    //   fetch("settings.json")
+    //       .then(response => {
+    //         return response.json()
+    //       })
+    //       .then(data => {
+    //         this.settings = data;
+    //       });
+    // }
   }
 }
 </script>
@@ -126,10 +152,14 @@ export default {
 
 
 .inner_box {
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-  justify-content: flex-start;
+  display: grid;
+  grid-template-columns: minmax(130px, 60%) 30% auto;
+  grid-template-rows: auto;
+  row-gap: 0.25em;
+  /* flex-direction: column; */
+  /* align-content: center; */
+  /* justify-content: flex-start; */
+
 
   white-space: pre-wrap;
   text-align: left;
