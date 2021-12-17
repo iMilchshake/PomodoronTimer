@@ -3,7 +3,7 @@
 
     <div v-bind:style="getSchemeStyle('text')">
       <input type="checkbox" id="dark_mode" name="dark_mode" v-model="dark_mode" @change="changeColorScheme($event)">
-      <label for="scales">Dark-Mode</label>
+      <label for="dark_mode">Dark-Mode</label>
     </div>
 
     <!-- <FadeImage :src="'logo.png'" class="logo"/> -->
@@ -19,26 +19,25 @@
           <p> n_loops: {{ getSettingsString("n_loops") }}x </p> -->
 
 
-            <label for="t_pomodoro"> Pomodoro Time</label> 
-            <input type="number" id="t_pomodoro" name="t_pomodoro" v-model="settings.t_pomodoro">         
-            <p> sec </p>
+          <label for="t_pomodoro"> Pomodoro Time</label>
+          <input type="number" id="t_pomodoro" name="t_pomodoro" v-model="settings.t_pomodoro">
+          <p> sec </p>
 
-            <label for="t_short"> Short-Break Time</label> 
-            <input type="number" id="t_short" name="t_short" v-model="settings.t_short">         
-            <p> sec </p>
+          <label for="t_short"> Short-Break Time</label>
+          <input type="number" id="t_short" name="t_short" v-model="settings.t_short">
+          <p> sec </p>
 
-            <label for="t_long"> Long-Break Time</label> 
-            <input type="number" id="t_long" name="t_long" v-model="settings.t_long">         
-            <p> sec </p>
+          <label for="t_long"> Long-Break Time</label>
+          <input type="number" id="t_long" name="t_long" v-model="settings.t_long">
+          <p> sec </p>
 
-            <label for="n_loops"> Loop Count</label> 
-            <input type="number" id="n_loops" name="n_loops" v-model="settings.n_loops">        
-            <p> sec </p> 
-          
-            <div/>
-            <input type="button" value="Submit" @click="updateSettings()">
-            <div/>
+          <label for="n_loops"> Loop Count</label>
+          <input type="number" id="n_loops" name="n_loops" v-model="settings.n_loops">
+          <p> sec </p>
 
+          <div/>
+          <input type="button" value="Submit" @click="updateSettings()">
+          <div/>
 
         </div>
       </div>
@@ -63,7 +62,7 @@ export default {
   name: "SettingsMenu",
   components: {},
   data: function () {
-    return { 
+    return {
       dark_mode: Boolean(this.$store.state.colorIndex),
       times: [],
       settings: this.$store.state.settings,
@@ -106,17 +105,10 @@ export default {
           });
     },
     updateSettings() {
-      console.log(this.settings);
+      this.$store.commit("updateSettings", this.settings);
+      this.$store.dispatch("resetTimer");
+      console.log("timer has been reset!");
     }
-    // updateSettings: function () {
-    //   fetch("settings.json")
-    //       .then(response => {
-    //         return response.json()
-    //       })
-    //       .then(data => {
-    //         this.settings = data;
-    //       });
-    // }
   }
 }
 </script>

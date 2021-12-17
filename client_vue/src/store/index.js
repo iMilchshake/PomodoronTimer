@@ -1,6 +1,8 @@
-import { createStore } from 'vuex'
-import { saveTimeObject } from "@/assets/backend_request";
-import { color_schemes } from "@/assets/color_schemes"
+import {createStore} from 'vuex'
+import {saveTimeObject} from "@/assets/backend_request";
+import {color_schemes} from "@/assets/color_schemes"
+
+// this whole VueX object is a huge mess. I've learned a lot, but im too committed now ¯\_(ツ)_/¯
 
 const getCurrentTime = () => {
     return performance.now();
@@ -44,6 +46,18 @@ export default createStore({
         date_start: null,
     },
     mutations: {
+        hardResetAll(state) {
+            state.t_left = 0;
+            state.t = 0;
+            state.t_goal = 0;
+            state.t_0 = 0;
+            state.active = false;
+            state.timeoutObject = null;
+            state.updateLoopActive = false;
+            state.n_pomodoro = 0;
+            state.phase = "pomodoro";
+            state.date_start = null;
+        },
         changeColorScheme(state, index) {
             state.colorScheme = color_schemes[index];
         },
@@ -73,7 +87,7 @@ export default createStore({
                 this.dispatch('finish');
             }, state.t_left * 1000)
         },
-        setupTimer(state, t) {
+        setTimer(state, t) {
             state.t_left = t;
             state.t = t;
             state.t_goal = t;
@@ -96,14 +110,14 @@ export default createStore({
                 if (state.n_pomodoro === state.settings.n_loops) {
                     state.n_pomodoro = 0;
                     state.phase = 'long';
-                    this.commit('setupTimer', state.settings.t_long)
+                    this.commit('setTimer', state.settings.t_long)
                 } else {
                     state.phase = 'short';
-                    this.commit('setupTimer', state.settings.t_short)
+                    this.commit('setTimer', state.settings.t_short)
                 }
             } else {
                 state.phase = 'pomodoro';
-                this.commit('setupTimer', state.settings.t_pomodoro);
+                this.commit('setTimer', state.settings.t_pomodoro);
             }
 
             console.log("loops: ", state.n_pomodoro, "phase: ", state.phase);
@@ -118,6 +132,9 @@ export default createStore({
         },
         setUpdateLoopState(state, active) {
             state.updateLoopActive = active;
+        },
+        updateSettings(state, settings) {
+            state.setting = settings;
         }
     },
     actions: {
@@ -155,9 +172,9 @@ export default createStore({
                 context.dispatch('updateLoop').then();
             }, 100);
         },
-        setupTimer(context, time) {
-            context.commit('setupTimer', time);
-        },
+        // setupTimer(context, time) {
+        //     context.commit('setTimer', time);
+        // },
         addTime(context, time) {
             const active_before = this.state.active;
             context.dispatch('stopTimer').then(() => {
@@ -198,6 +215,13 @@ export default createStore({
                     context.commit('finish');
                 }
 
+            });
+        },
+        resetTimer(context) {
+            context.dispatch('stopTimer').then(() => {
+                context.commit('hardResetAll');
+                context.commit("setTimer", context.state.settings.t_pomodoro)
+                context.dispatch('startUpdateLoop').then();
             });
         },
         saveCurrentTime(context) {

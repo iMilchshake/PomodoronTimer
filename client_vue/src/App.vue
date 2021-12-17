@@ -22,7 +22,7 @@ export default {
     this.$store.dispatch("updateColorScheme", 1)
 
     // setup timer
-    this.$store.dispatch("setupTimer", this.$store.state.settings.t_pomodoro)
+    this.$store.commit("setTimer", this.$store.state.settings.t_pomodoro)
 
     // start timer's update loop
     this.$store.dispatch('startUpdateLoop');
